@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/Button01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="儲存"
+        android:typeface="monospace" >
+    </Button>
+
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="wrap_content"
+        android:layout_height="40px"
+        android:text="@string/strMessage1"
+        android:textColor="#ffff6699"
+        android:textSize="30px" >
+    </TextView>
+
+    <DatePicker
+        android:id="@+id/DatePicker01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+    </DatePicker>
+
+    <TextView
+        android:id="@+id/TextView02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MC週期"
+        android:textColor="#ffff6699" />
+
+    <EditText
+        android:id="@+id/EditText01"
+        android:layout_width="46dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:lines="1"
+        android:maxLength="2"
+        android:maxLines="1"
+        android:numeric="decimal"
+        android:textColor="#ffff6699" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/TextView03"
+        android:layout_width="wrap_content"
+        android:layout_height="40px"
+        android:text="@string/strMessage2"
+        android:textColor="#ffff6699"
+        android:textSize="30px" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/TextView04"
+        android:layout_width="wrap_content"
+        android:layout_height="40px"
+        android:textColor="#ff9999ff"
+        android:textSize="30px" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/TextView05"
+        android:layout_width="wrap_content"
+        android:layout_height="40px"
+        android:text="@string/strMessage5"
+        android:textColor="#ffff6699"
+        android:textSize="30px" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/TextView07"
+        android:layout_width="wrap_content"
+        android:layout_height="40px"
+        android:text="@string/strMessage6"
+        android:textColor="#ffff6699"
+        android:textSize="30px" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/TextView08"
+        android:layout_width="wrap_content"
+        android:layout_height="40px"
+        android:textColor="#ff9999ff"
+        android:textSize="30px" >
+    </TextView>
+
+</LinearLayout>

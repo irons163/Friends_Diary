@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <drawable name="black">#000000</drawable>
+  <drawable name="white">#FFFFFFFF</drawable>
+  <color name="black">#000000</color>
+  <color name="white">#FFFFFFFF</color>
+      <color name="red">#fd8d8d</color>
+	<color name="green">#9cfda3</color>
+	<color name="blue">#8d9dfd</color>
+	<color name="yellow">#f4d674</color>
+	<color name="pink">#ffdddd</color>
+	<color name="pinkblue">#ddffff</color>
+	
+	
+		<color name="passedschbg">#818175</color><!--日程列表中过期的日程背景颜色-->
+	<color name="passedschtext">#292929</color><!--日程列表中过期的日程时间颜色-->
+	<color name="selectedsch">#ffc4c4</color><!--日程列表中选中的日程背景颜色-->
+	
+	<color name="button_unselected">#ff54acea</color>
+	<color name="blank_color">#ff999999</color>
+	<color name="sc_transparent_background">#00111111</color>
+</resources>

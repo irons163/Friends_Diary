@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+   	    <LinearLayout
+	        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" > 
+    	   		<ImageView
+	   		    android:id="@+id/imageView1"
+	   		    android:layout_width="100dp"
+	   		    android:layout_height="100dp" />
+	    <LinearLayout
+	        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+	   	<LinearLayout
+	   		android:orientation="horizontal"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:paddingLeft="10dip"
+			android:paddingTop="10dip">
+		   	<TextView
+		   		android:id="@+id/tvdialogcheckType"
+		   		android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textColor="#b20000"
+				android:textSize="17dip"
+		   	/>
+	   		<TextView
+		   		android:id="@+id/tvdialogcheckTitle"
+		   		android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textColor="#b20000"
+				android:textSize="17dip"
+		   	/>
+		    
+		</LinearLayout>
+	   	<LinearLayout
+	   		android:orientation="horizontal"
+	   		android:paddingTop="10dip"
+	   		android:paddingLeft="10dip"
+			android:paddingRight="10dip"
+			android:layout_width="250dip"
+			android:layout_height="wrap_content"
+			android:minHeight="50dip">
+
+
+
+			<ImageView
+				android:src="@drawable/note"
+				android:layout_width="30dip"
+				android:layout_height="30dip"
+			/>
+
+				<TextView
+			   		android:id="@+id/tvdialogcheckNote"
+			   		android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textColor="#b20000"
+					android:textSize="17dip"
+			   	/>	
+
+		</LinearLayout>
+	    <LinearLayout
+	   		android:orientation="horizontal"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:paddingLeft="10dip"
+			android:paddingRight="10dip">
+			<ImageView
+				android:src="@drawable/calendar"
+				android:layout_width="30dip"
+				android:layout_height="30dip"
+			/>
+			
+	   		<TextView
+		   		android:id="@+id/tvdialogcheckDate1"
+		   		android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dip"
+				android:textColor="#b20000"
+				android:textSize="17dip"
+		   	/>
+	   		
+	   		<TextView
+		   		android:id="@+id/tvdialogcheckTime1"
+		   		android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginLeft="5dip"
+				android:textColor="#b20000"
+				android:textSize="17dip"
+		   	/>			   	
+		</LinearLayout>
+</LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="top"
+    android:background="@color/pinkblue"
+    >
+    <TableRow>
+        <TextView
+            android:layout_column="0"
+            android:text="圖片"
+            android:textSize="16dip" 
+            android:textStyle="bold"
+            android:padding="3dip"
+            android:width="64px"
+           
+            />
+                <TextView
+                    android:layout_column="1"
+            android:textSize="16dip" 
+            android:textStyle="bold"
+            android:padding="3dip"
+            android:width="64px"
+            android:layout_marginLeft="30dp"
+            android:text="日期" />
+                
+        <TextView
+            android:layout_column="2"
+            android:text="日記標題"
+            android:textSize="16dip" 
+            android:textStyle="bold"
+            android:padding="3dip"
+            android:layout_marginLeft="30dp"
+            />
+
+
+
+    </TableRow>
+
+    <View
+        android:layout_height="1px"
+        android:background="#FFff0000" />
+
+	<ScrollView
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:gravity="top"
+		>
+		<TableLayout 
+			android:id="@+id/table"
+		    android:layout_width="fill_parent"
+		    android:layout_height="fill_parent"
+		    android:gravity="top"
+		    >
+		</TableLayout>
+	</ScrollView>
+
+	<ListView
+	    android:id="@+id/listView1"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" >
+	</ListView>
+
+</TableLayout>
+
+    
