@@ -28,6 +28,7 @@ import com.way.client.MessageListener;
 import com.way.util.MessageDB;
 import com.way.util.MyDate;
 import com.way.util.SharePreferenceUtil;
+import com.way.util.UserDB;
 
 /**
  * 收取消息服务
@@ -45,6 +46,8 @@ public class GetMsgService extends Service {
 	private Context mContext = this;
 	private SharePreferenceUtil util;
 	private MessageDB messageDB;
+	
+	private UserDB userDB;// 保存好友列表数据库对象
 	// 收到用户按返回键发出的广播，就显示通知栏
 	private BroadcastReceiver backKeyReceiver = new BroadcastReceiver() {
 
@@ -65,13 +68,34 @@ public class GetMsgService extends Service {
 				application.setNewMsgNum(newMsgNum);// 再设置为全局变量
 				TranObject<TextMessage> textObject = (TranObject<TextMessage>) msg
 						.getData().getSerializable("msg");
+				
+
+				
 				// System.out.println(textObject);
 				if (textObject != null) {
 					int form = textObject.getFromUser();// 消息从哪里来
 					String content = textObject.getObject().getMessage();// 消息内容
+					
+					TranObject Object = (TranObject)msg.getData().getSerializable("msg");
+					int fromUser = Object.getFromUser();
+					String dailyTime = Object.getDailyTime();
+					
+					String imagePath = "/mnt/sdcard/"+fromUser+dailyTime+".bmp";
+					
+					userDB = new UserDB(GetMsgService.this);
+					User user2 = userDB.selectInfo(Object.getFromUser());// 通过id查询对应数据库该好友信息
+					RecentChatEntity entity2 = new RecentChatEntity(Object.getFromUser(),
+							user2.getImg(), 1, user2.getName(), MyDate.getDate(),
+							content);
+					application.getmRecentAdapter().remove(entity2);// 先移除该对象，目的是添加到首部
+					application.getmRecentList().addFirst(entity2);// 再添加到首部
+					application.getmRecentAdapter().notifyDataSetChanged();
+					
+					
+
 
 					ChatMsgEntity entity = new ChatMsgEntity("",
-							MyDate.getDateEN(), content, -1, true, null);// 收到的消息
+							MyDate.getDateEN(), content, -1, true, imagePath);// 收到的消息
 					messageDB.saveMsg(form, entity);// 保存到数据库
 
 					// 更新通知栏

@@ -5,8 +5,6 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    
-
     <RelativeLayout
         android:id="@+id/RelativeLayout1"
         android:layout_width="fill_parent"
@@ -20,8 +18,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:gravity="center" >
-
-            <RelativeLayout
+             <RelativeLayout
                 android:id="@+id/rl_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -42,49 +39,16 @@
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/friend_list_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="朋友寄來的日記"    
+                    android:text="發送日記給朋友"    
                      android:textColor="#ffffff"
                     android:textSize="20.0sp" />
             </RelativeLayout>
-
-
-
         </LinearLayout>
-
-
     </RelativeLayout>
-     <LinearLayout
-        android:id="@+id/bodylayout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffffff"
-        android:orientation="horizontal" >
 
-          <Button
-              android:id="@+id/tab1"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              
-              android:text="近期接收列表" />
-
-          <Button
-              android:id="@+id/tab2"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:enabled="false"
-              android:text="按朋友分組" />
-                    <Button
-              android:id="@+id/tab3"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:enabled="false"
-              android:text="所有接收列表" />
-        
-     </LinearLayout>   
     <LinearLayout
         android:id="@+id/bodylayout"
         android:layout_width="fill_parent"

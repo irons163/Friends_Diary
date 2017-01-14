@@ -1,5 +1,6 @@
 package tw.com.irons.try_case2;
 
+import com.way.chat.activity.FriendListActivity;
 import com.way.chat.common.tran.bean.TranObject;
 import com.way.chat.common.util.Constants;
 
@@ -46,6 +47,8 @@ public class MainMenu extends Activity {
 		
 		final Intent intent2 = new Intent(MainMenu.this, MyNote.class);
 		intent2.putExtra(Constants.MSGKEY, msg);
+		final Intent intent3 = new Intent(MainMenu.this, FriendListActivity.class);
+		intent3.putExtra(Constants.MSGKEY, msg);
 
 		button = (Button) findViewById(R.id.button1);
 		button2 = (Button) findViewById(R.id.button2);
@@ -120,7 +123,8 @@ public class MainMenu extends Activity {
 
 			@Override
 			public void onClick(View v) {
-
+				//Intent intent = new Intent(MainMenu.this, FriendListActivity.class);
+				startActivity(intent3);
 			}
 		});
 

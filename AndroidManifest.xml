@@ -192,6 +192,14 @@
             android:name="com.way.chat.activity.ChatActivity"
             android:windowSoftInputMode="adjustResize" >
         </activity>
+        <activity
+            android:name="com.way.chat.activity.FriendListSendActivity"
+            android:launchMode="singleTop" >
+        </activity>
+        <activity
+            android:name="com.way.chat.activity.SendOnly"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

@@ -92,8 +92,8 @@ public class ChatMsgViewAdapter extends BaseAdapter {
 					.findViewById(R.id.tv_username);
 			viewHolder.tvContent = (TextView) convertView
 					.findViewById(R.id.tv_chatcontent);
-			viewHolder.icon = (ImageView) convertView
-					.findViewById(R.id.iv_userhead);
+			//viewHolder.icon = (ImageView) convertView
+			//		.findViewById(R.id.iv_userhead);
 			
 			viewHolder.img = (ImageView) convertView
 					.findViewById(R.id.iv_img);
@@ -107,7 +107,7 @@ public class ChatMsgViewAdapter extends BaseAdapter {
 		viewHolder.tvSendTime.setText(entity.getDate());
 		viewHolder.tvUserName.setText(entity.getName());
 		viewHolder.tvContent.setText(entity.getMessage());
-		viewHolder.icon.setImageResource(imgs[entity.getImg()]);
+		//viewHolder.icon.setImageResource(imgs[entity.getImg()]);
 		if(entity.getDailyImg()!=null){
 		Log.e("g", entity.getDailyImg());
 		Bitmap bitmap = BitmapFactory.decodeFile(entity.getDailyImg());

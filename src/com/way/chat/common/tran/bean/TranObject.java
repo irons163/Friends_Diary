@@ -28,6 +28,8 @@ public class TranObject<T> implements Serializable {
 	private T object;// 传输的对象
 	
 	byte[] image;
+	
+	private String dailyTime;
 
 	public TranObject(TranObjectType type) {
 		this.type = type;
@@ -64,7 +66,7 @@ public class TranObject<T> implements Serializable {
 	@Override
 	public String toString() {
 		return "TranObject [type=" + type + ", fromUser=" + fromUser
-				+ ", toUser=" + toUser + ", object=" + object + ", image=" + image + "]";
+				+ ", toUser=" + toUser + ", object=" + object + ", image=" + image + ", dailyTime=" + dailyTime +"]";
 	}
 	
 	public byte[] getImage() {
@@ -81,5 +83,13 @@ public class TranObject<T> implements Serializable {
 		image = stream.toByteArray();
         
 		//this.object = object;
+	}
+	
+	public String getDailyTime() {
+		return dailyTime;
+	}
+
+	public void setDailyTime(String dailyTime) {
+		this.dailyTime = dailyTime;
 	}
 }

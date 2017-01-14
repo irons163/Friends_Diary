@@ -4,11 +4,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import tw.com.irons.try_case2.R;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
@@ -19,7 +17,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,74 +33,68 @@ import com.way.util.MyDate;
 import com.way.util.SharePreferenceUtil;
 import com.way.util.UserDB;
 
-/**
- * 聊天Activity
- * 
- * @author way
- */
-public class ChatActivity extends MyActivity implements OnClickListener {
-	//private Button mBtnSend;// 发送btn
+
+
+public class SendOnly extends MyActivity implements OnClickListener {
+	private Button mBtnSend;// 发送btn
 	private Button mBtnBack;// 返回btn
 	private EditText mEditTextContent;
 	private TextView mFriendName;
-	private ListView mListView;
-	private ChatMsgViewAdapter mAdapter;// 消息视图的Adapter
-	private List<ChatMsgEntity> mDataArrays = new ArrayList<ChatMsgEntity>();// 消息对象数组
+
 	private SharePreferenceUtil util;
 	private User user;
 	private MessageDB messageDB;
 	private MyApplication application;
-	
+
+	MyExAdapter meAdapter ;
+	private ImageView dailyImage;
+	String imagePath;
+	String dailyTime;
+	String dailyContent;
 	
 	private UserDB userDB;// 保存好友列表数据库对象
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);// 去掉标题栏
-		setContentView(R.layout.chat);
+		setContentView(R.layout.send);
 		application = (MyApplication) getApplicationContext();
 		messageDB = new MessageDB(this);
 		user = (User) getIntent().getSerializableExtra("user");
 		util = new SharePreferenceUtil(this, Constants.SAVE_USER);
+		
+		
 		initView();// 初始化view
-		initData();// 初始化数据
+		//initData();// 初始化数据
+		
+		Intent intent = getIntent();
+		Bundle bundle = new Bundle();
+		bundle = intent.getExtras();
+		imagePath = bundle.getString("imagePath");
+		dailyTime = bundle.getString("dailyTime");
+		dailyContent = bundle.getString("dailyContent");
+		
+		mEditTextContent.setText(dailyContent);
+		
+		Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+		
+		dailyImage.setImageBitmap(bitmap);
 	}
 
 	/**
 	 * 初始化view
 	 */
 	public void initView() {
-		mListView = (ListView) findViewById(R.id.listview);
-		//mBtnSend = (Button) findViewById(R.id.chat_send);
-		//mBtnSend.setOnClickListener(this);
+		
+		mBtnSend = (Button) findViewById(R.id.chat_send);
+		mBtnSend.setOnClickListener(this);
 		mBtnBack = (Button) findViewById(R.id.chat_back);
 		mBtnBack.setOnClickListener(this);
 		mFriendName = (TextView) findViewById(R.id.chat_name);
 		mFriendName.setText(util.getName());
-
+		mEditTextContent = (EditText) findViewById(R.id.editCont);
+		dailyImage = (ImageView)findViewById(R.id.dailyImage);
 	}
 
-	/**
-	 * 加载消息历史，从数据库中读出
-	 */
-	public void initData() {
-		List<ChatMsgEntity> list = messageDB.getMsg(user.getId());
-		if (list.size() > 0) {
-			for (ChatMsgEntity entity : list) {
-				if (entity.getName().equals("")) {
-					entity.setName(user.getName());
-				}
-				if (entity.getImg() < 0) {
-					entity.setImg(user.getImg());
-				}
-				//entity.get
-				mDataArrays.add(entity);
-			}
-			Collections.reverse(mDataArrays);
-		}
-		mAdapter = new ChatMsgViewAdapter(this, mDataArrays);
-		mListView.setAdapter(mAdapter);
-		mListView.setSelection(mAdapter.getCount() - 1);
-	}
 
 	@Override
 	protected void onDestroy() {
@@ -114,7 +106,7 @@ public class ChatActivity extends MyActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.chat_send:// 发送按钮点击事件
-			//send();
+			send();
 			break;
 		case R.id.chat_back:// 返回按钮点击事件
 			finish();// 结束,实际开发中，可以返回主界面
@@ -122,13 +114,73 @@ public class ChatActivity extends MyActivity implements OnClickListener {
 		}
 	}
 
+	/**
+	 * 发送消息
+	 */
+	private void send() {
+		//String contString = mEditTextContent.getText().toString();
+		
+		//String imgPath="/mnt/sdcard/test1.bmp";
+		
+
+		
+		if (dailyContent.length() >= 0) {
+			/*
+			ChatMsgEntity entity = new ChatMsgEntity();
+			entity.setName(util.getName());
+			entity.setDate(MyDate.getDateEN());
+			entity.setMessage(contString);
+			entity.setImg(util.getImg());
+			entity.setMsgType(false);
+			entity.setDailyImg(imagePath);
+					
+			messageDB.saveMsg(user.getId(), entity);
+			
+			mEditTextContent.setText("");// 清空编辑框数据
+			 */
+			dailyContent = mEditTextContent.getText().toString();
+			
+
+			
+			MyApplication application = (MyApplication) this
+					.getApplicationContext();
+			Client client = application.getClient();
+			ClientOutputThread out = client.getClientOutputThread();
+			if (out != null) {
+				TranObject<TextMessage> o = new TranObject<TextMessage>(
+						TranObjectType.MESSAGE);
+				TextMessage message = new TextMessage();
+				message.setMessage(dailyContent);
+				
+				
+				Log.e("date", dailyTime);
+				
+				
+				o.setObject(message);
+				o.setFromUser(Integer.parseInt(util.getId()));
+				o.setToUser(user.getId());
+				o.setImage(imagePath);
+				o.setDailyTime(dailyTime);
+				out.setMsg(o);
+				
+				finish();
+			}
+			/*
+			// 下面是添加到最近会话列表的处理，在按发送键之后
+			RecentChatEntity entity1 = new RecentChatEntity(user.getId(),
+					user.getImg(), 0, user.getName(), MyDate.getDate(),
+					contString);
+			application.getmRecentList().remove(entity1);
+			application.getmRecentList().addFirst(entity1);
+			application.getmRecentAdapter().notifyDataSetChanged();*/
+		}
+	}
 
 	@Override
 	public void getMessage(TranObject msg) {
 		// TODO Auto-generated method stub
 		switch (msg.getType()) {
 		case MESSAGE:
-			
 			TextMessage tm = (TextMessage) msg.getObject();
 			String message = tm.getMessage();
 			
@@ -168,7 +220,7 @@ public class ChatActivity extends MyActivity implements OnClickListener {
 			
 			
             
-			userDB = new UserDB(ChatActivity.this);
+			userDB = new UserDB(SendOnly.this);
 			User user2 = userDB.selectInfo(msg.getFromUser());// 通过id查询对应数据库该好友信息
 			RecentChatEntity entity2 = new RecentChatEntity(msg.getFromUser(),
 					user2.getImg(), 1, user2.getName(), MyDate.getDate(),
@@ -176,38 +228,33 @@ public class ChatActivity extends MyActivity implements OnClickListener {
 			application.getmRecentAdapter().remove(entity2);// 先移除该对象，目的是添加到首部
 			application.getmRecentList().addFirst(entity2);// 再添加到首部
 			application.getmRecentAdapter().notifyDataSetChanged();
-            
-
+			
+			
 			ChatMsgEntity entity = new ChatMsgEntity(user.getName(),
 					MyDate.getDateEN(), message, user.getImg(), true, imagePath);// 收到的消息
-			if (msg.getFromUser() == user.getId() || msg.getFromUser() == 0) {// 如果是正在聊天的好友的消息，或者是服务器的消息
 
-				messageDB.saveMsg(user.getId(), entity);
-
-				mDataArrays.add(entity);
-				mAdapter.notifyDataSetChanged();
-				mListView.setSelection(mListView.getCount() - 1);
-				MediaPlayer.create(this, R.raw.msg).start();
-			} else {
 				messageDB.saveMsg(msg.getFromUser(), entity);// 保存到数据库
-				Toast.makeText(ChatActivity.this,
+				Toast.makeText(SendOnly.this,
 						"您有新的消息来自：" + msg.getFromUser() + ":" + message, 0)
 						.show();// 其他好友的消息，就先提示，并保存到数据库
 				MediaPlayer.create(this, R.raw.msg).start();
-			}
+			
+			
 			break;
 		case LOGIN:
 			User loginUser = (User) msg.getObject();
-			Toast.makeText(ChatActivity.this, loginUser.getId() + "上线了", 0)
+			Toast.makeText(SendOnly.this, loginUser.getId() + "上线了", 0)
 					.show();
 			MediaPlayer.create(this, R.raw.msg).start();
 			
+			meAdapter.notifyDataSetChanged();
 			break;
 		case LOGOUT:
 			User logoutUser = (User) msg.getObject();
-			Toast.makeText(ChatActivity.this, logoutUser.getId() + "下线了", 0)
+			Toast.makeText(SendOnly.this, logoutUser.getId() + "下线了", 0)
 					.show();
 			MediaPlayer.create(this, R.raw.msg).start();
+			meAdapter.notifyDataSetChanged();
 			break;
 		default:
 			break;

@@ -3,10 +3,13 @@ package com.way.chat.activity;
 import java.util.List;
 
 import tw.com.irons.try_case2.R;
+import tw.com.irons.try_case2.Constant.WhoCall;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Adapter;
@@ -14,8 +17,17 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.way.chat.common.bean.TextMessage;
 import com.way.chat.common.bean.User;
+import com.way.chat.common.tran.bean.TranObject;
+import com.way.chat.common.tran.bean.TranObjectType;
+import com.way.chat.common.util.Constants;
+import com.way.client.Client;
+import com.way.client.ClientOutputThread;
 import com.way.util.GroupFriend;
+import com.way.util.MessageDB;
+import com.way.util.MyDate;
+import com.way.util.SharePreferenceUtil;
 
 /**
  * 自定义ExpandableListView的适配器
@@ -24,19 +36,31 @@ import com.way.util.GroupFriend;
  * 
  */
 public class MyExAdapter extends BaseAdapter {
+	private SharePreferenceUtil util;
+	private User user;
+	private MessageDB messageDB;
+	private MyApplication application;
+	
 	private int[] imgs = { R.drawable.icon, R.drawable.f1, R.drawable.f2,
 			R.drawable.f3, R.drawable.f4, R.drawable.f5, R.drawable.f6,
 			R.drawable.f7, R.drawable.f8, R.drawable.f9 };// 头像资源数组
 	private Context context;
 	private List<GroupFriend> group;// 传递过来的经过处理的总数据
 
+	private Intent intent;
+	
 	public MyExAdapter(Context context, List<GroupFriend> group) {
 		super();
 		this.context = context;
 		this.group = group;
 	}
 
-	
+	public MyExAdapter(Context context, List<GroupFriend> group, Intent intent) {
+		super();
+		this.context = context;
+		this.group = group;
+		this.intent = intent;
+	}
 
 
 
@@ -115,7 +139,9 @@ public class MyExAdapter extends BaseAdapter {
 			if (convertView == null) {
 				LayoutInflater inflater = LayoutInflater.from(context);
 				convertView = inflater.inflate(R.layout.item, null);
+				Log.e("cc", "11");
 			}
+			Log.e("dd", "11");
 			final TextView title = (TextView) convertView
 					.findViewById(R.id.name_item);// 显示用户名
 			final TextView title2 = (TextView) convertView
@@ -132,7 +158,14 @@ public class MyExAdapter extends BaseAdapter {
 					.getImg();
 			title.setText(name);// 大标题
 			title2.setText(id);// 小标题
+			
+			if(group.get(0).getChild(childPosition).getIsOnline()==1){
 			icon.setImageResource(imgs[img]);
+			}else{
+				icon.setImageResource(R.drawable.ic_launcher);
+			}
+			
+			
 			convertView.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -142,9 +175,19 @@ public class MyExAdapter extends BaseAdapter {
 					u.setName(name);
 					u.setId(Integer.parseInt(id));
 					u.setImg(img);
-					Intent intent = new Intent(context, ChatActivity.class);
-					intent.putExtra("user", u);
-					context.startActivity(intent);
+					
+					
+					if(Constants.WhoCall.equals("SEND")){
+						//intent = new Intent(context, SendOnly.class);
+						intent.putExtra("user", u);
+						context.startActivity(intent);
+			}else{
+				Intent intent = new Intent(context, ChatActivity.class);
+				intent.putExtra("user", u);
+				context.startActivity(intent);
+			}
+
+					
 					// Toast.makeText(Tab2.this, "开始聊天", 0).show();
 
 				}

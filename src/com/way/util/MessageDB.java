@@ -38,7 +38,7 @@ public class MessageDB {
 		db.execSQL("CREATE table IF NOT EXISTS _"
 				+ id
 				+ " (_id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT, img TEXT,date TEXT,isCome TEXT,message TEXT, imagePath TEXT)");
-		Cursor c = db.rawQuery("SELECT * from _" + id + " ORDER BY _id DESC LIMIT 5", null);
+		Cursor c = db.rawQuery("SELECT * from _" + id + " ORDER BY _id DESC ", null);
 		while (c.moveToNext()) {
 			String name = c.getString(c.getColumnIndex("name"));
 			int img = c.getInt(c.getColumnIndex("img"));

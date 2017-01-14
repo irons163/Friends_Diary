@@ -1,7 +1,6 @@
 package com.way.chat.activity;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import tw.com.irons.try_case2.R;
@@ -10,13 +9,9 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,8 +20,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -50,7 +43,7 @@ import com.way.util.UserDB;
  * @author way
  * 
  */
-public class FriendListActivity extends MyActivity implements OnClickListener {
+public class FriendListSendActivity extends MyActivity implements OnClickListener {
 
 	private static final int PAGE1 = 0;// 页面1
 	private static final int PAGE2 = 1;// 页面2
@@ -72,17 +65,11 @@ public class FriendListActivity extends MyActivity implements OnClickListener {
 	private ViewPager mPager;
 	private List<View> mListViews;// Tab页面
 	private LinearLayout layout_body_activity;
-	//private ImageView img_recent_chat;// 最近会话
-	//private ImageView img_friend_list;// 好友列表
-	
-	Button allComeFromFriends;
-	Button ComeFromFriends;
-	Button alldata;
-	private Button mBtnBack;// 返回btn
-	private TextView friendListTitle;// 名字
 	
 	private ImageView img_group_friend;// 群组
 
+	private ImageView myHeadImage;// 头像
+	private TextView myName;// 名字
 
 	private ImageView cursor;// 标题背景图片
 
@@ -97,17 +84,24 @@ public class FriendListActivity extends MyActivity implements OnClickListener {
 			R.drawable.f3, R.drawable.f4, R.drawable.f5, R.drawable.f6,
 			R.drawable.f7, R.drawable.f8, R.drawable.f9 };// 头像资源
 	private MyApplication application;
-	List<ChatMsgEntity> mDataArrays;
-	ChatMsgViewAdapter mAdapter;// 消息视图的Adapter
-	ListView lv;
-	
+
+	MyExAdapter meAdapter ;
+	Intent intent2;
+	private Button mBtnBack;// 返回btn
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);// 去掉标题栏
-		setContentView(R.layout.friend_list);
+		setContentView(R.layout.friend_list_send);
 		application = (MyApplication) this.getApplicationContext();
-		initData();// 初始化数据
 		
+		Intent intent = getIntent();
+		Bundle bundle = new Bundle();
+		bundle = intent.getExtras();
+		
+		intent2 = new Intent(FriendListSendActivity.this, SendOnly.class);
+		intent2.putExtras(bundle);
+		
+		initData();// 初始化数据
 		initUI();// 初始化界面
 	}
 
@@ -133,7 +127,7 @@ public class FriendListActivity extends MyActivity implements OnClickListener {
 	 * 初始化系统数据
 	 */
 	private void initData() {
-		userDB = new UserDB(FriendListActivity.this);// 本地用户数据库
+		userDB = new UserDB(FriendListSendActivity.this);// 本地用户数据库
 		messageDB = new MessageDB(this);// 本地消息数据库
 		util = new SharePreferenceUtil(this, Constants.SAVE_USER);
 
@@ -173,18 +167,9 @@ public class FriendListActivity extends MyActivity implements OnClickListener {
 		mi = new MenuInflater(this);
 		layout_body_activity = (LinearLayout) findViewById(R.id.bodylayout);
 
-		allComeFromFriends = (Button) findViewById(R.id.tab1);
-		allComeFromFriends.setOnClickListener(this);
-		ComeFromFriends = (Button) findViewById(R.id.tab2);
-		ComeFromFriends.setOnClickListener(this);
-		alldata = (Button) findViewById(R.id.tab3);
-		alldata.setOnClickListener(this);
-
 		mBtnBack = (Button) findViewById(R.id.chat_back);
 		mBtnBack.setOnClickListener(this);
-
-		friendListTitle = (TextView)findViewById(R.id.friend_list_title);
-
+		
 		layout_body_activity.setFocusable(true);
 
 		mPager = (ViewPager) findViewById(R.id.viewPager);
@@ -192,15 +177,14 @@ public class FriendListActivity extends MyActivity implements OnClickListener {
 		LayoutInflater inflater = LayoutInflater.from(this);
 		View lay1 = inflater.inflate(R.layout.tab1, null);
 		View lay2 = inflater.inflate(R.layout.tab2, null);
-		View lay3 = inflater.inflate(R.layout.tab3, null);
 
 		mListViews.add(lay1);
 		mListViews.add(lay2);
-		mListViews.add(lay3);
-		
+
 		mPager.setAdapter(new MyPagerAdapter(mListViews));
 		mPager.setCurrentItem(PAGE2);
-
+		//mPager.setOnPageChangeListener(new MyOnPageChangeListener());
+		
 		// 下面是最近会话界面处理
 		mRecentListView = (ListView) lay1.findViewById(R.id.tab1_listView);
 		// mRecentAdapter = new RecentChatAdapter(FriendListActivity.this,
@@ -209,73 +193,21 @@ public class FriendListActivity extends MyActivity implements OnClickListener {
 
 		// 下面是处理好友列表界面处理
 		myListView = (ListView) lay2.findViewById(R.id.tab2_listView);
-		Constants.WhoCall = "READ";
-		myExAdapter = new MyExAdapter(this, group);
+		Constants.WhoCall = "SEND";
+		myExAdapter = new MyExAdapter(this, group, intent2);
 		myListView.setAdapter(myExAdapter);
 		//myListView.setGroupIndicator(null);// 不设置大组指示器图标，因为我们自定义设置了
 		myListView.setDivider(null);// 设置图片可拉伸的
 		myListView.setFocusable(true);// 聚焦才可以下拉刷新
 		//myListView.setonRefreshListener(new MyRefreshListener());
 
-		
-		lv = (ListView)lay3.findViewById(R.id.tab3_listView);
-		//lv.setAdapter(null);
-		
-		mDataArrays = new ArrayList<ChatMsgEntity>();// 消息对象数组
-		application = (MyApplication) getApplicationContext();
-		messageDB = new MessageDB(this);
-		
-		List<User> listUser = new  ArrayList<User>();
-		listUser = userDB.getUser();
-		
-		for(int i=0;i<listUser.size() ;i++){
-		List<ChatMsgEntity> list = messageDB.getMsg(listUser.get(i).getId());
-		if (list.size() > 0) {
-			for (ChatMsgEntity entity : list) {
-				if (entity.getName().equals("")) {
-					entity.setName(listUser.get(i).getName());
-				}
-				if (entity.getImg() < 0) {
-					entity.setImg(listUser.get(i).getImg());
-				}
-				//entity.get
-				mDataArrays.add(entity);
-			}
-			Collections.reverse(mDataArrays);
-		}
-		}
-		
-		
-		mAdapter = new ChatMsgViewAdapter(this, mDataArrays);
-		lv.setAdapter(mAdapter);
-		lv.setSelection(mAdapter.getCount() - 1);
+
 	}
 
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		switch (v.getId()) {
-		case R.id.tab1:
-			mPager.setCurrentItem(PAGE1);// 点击页面1
-			allComeFromFriends.setEnabled(false);
-			ComeFromFriends.setEnabled(true);
-			alldata.setEnabled(true);
-			friendListTitle.setText("近期接收的日記");
-			break;
-		case R.id.tab2:
-			mPager.setCurrentItem(PAGE2);// 点击页面1
-			allComeFromFriends.setEnabled(true);
-			ComeFromFriends.setEnabled(false);
-			alldata.setEnabled(true);
-			friendListTitle.setText("好友日記");
-			break;
-		case R.id.tab3:
-			mPager.setCurrentItem(PAGE3);// 点击页面
-			allComeFromFriends.setEnabled(true);
-			ComeFromFriends.setEnabled(true);
-			alldata.setEnabled(false);
-			friendListTitle.setText("所有接收的日記");
-			break;	
 		case R.id.chat_back:// 返回按钮点击事件
 			finish();// 结束,实际开发中，可以返回主界面
 			break;
@@ -306,7 +238,7 @@ public class FriendListActivity extends MyActivity implements OnClickListener {
 			Toast.makeText(getApplicationContext(), "亲！此功能暂未实现哦", 0).show();
 			break;
 		case R.id.friend_menu_exit:
-			exitDialog(FriendListActivity.this, "QQ提示", "亲！您真的要退出吗？");
+			exitDialog(FriendListSendActivity.this, "QQ提示", "亲！您真的要退出吗？");
 			break;
 		default:
 			break;
@@ -324,7 +256,7 @@ public class FriendListActivity extends MyActivity implements OnClickListener {
 						// 关闭服务
 						if (application.isClientStart()) {
 							Intent service = new Intent(
-									FriendListActivity.this,
+									FriendListSendActivity.this,
 									GetMsgService.class);
 							stopService(service);
 						}
@@ -333,58 +265,7 @@ public class FriendListActivity extends MyActivity implements OnClickListener {
 				}).setNegativeButton("取消", null).create().show();
 	}
 
-	@Override
-	public void getMessage(TranObject msg) {// 重写父类的方法，处理消息
-		// TODO Auto-generated method stub
-		switch (msg.getType()) {
-		case MESSAGE:
-			newNum++;
-			application.setRecentNum(newNum);// 保存到全局变量
-			TextMessage tm = (TextMessage) msg.getObject();
-			String message = tm.getMessage();
-			
-			int fromUser = msg.getFromUser();
-			String dailyTime = msg.getDailyTime();
-			
-			String imagePath = "/mnt/sdcard/"+fromUser+dailyTime+".bmp";
-			
-			
-			ChatMsgEntity entity = new ChatMsgEntity("", MyDate.getDateEN(),
-					message, -1, true, imagePath);// 收到的消息
-			messageDB.saveMsg(msg.getFromUser(), entity);// 保存到数据库
-			Toast.makeText(FriendListActivity.this,
-					"亲！新消息哦 " + msg.getFromUser() + ":" + message, 0).show();// 提示用户
-			MediaPlayer.create(this, R.raw.msg).start();// 声音提示
-			User user2 = userDB.selectInfo(msg.getFromUser());// 通过id查询对应数据库该好友信息
-			RecentChatEntity entity2 = new RecentChatEntity(msg.getFromUser(),
-					user2.getImg(), 1, user2.getName(), MyDate.getDate(),
-					message);
-			application.getmRecentAdapter().remove(entity2);// 先移除该对象，目的是添加到首部
-			application.getmRecentList().addFirst(entity2);// 再添加到首部
-			application.getmRecentAdapter().notifyDataSetChanged();
-			
-			mDataArrays.add(entity);
-			mAdapter.notifyDataSetChanged();
-			lv.setSelection(lv.getCount() - 1);
-			
-			break;
-		case LOGIN:
-			User loginUser = (User) msg.getObject();
-			Toast.makeText(FriendListActivity.this,
-					"亲！" + loginUser.getId() + "上线了哦", 0).show();
-			MediaPlayer.create(this, R.raw.msg).start();
-			
-			break;
-		case LOGOUT:
-			User logoutUser = (User) msg.getObject();
-			Toast.makeText(FriendListActivity.this,
-					"亲！" + logoutUser.getId() + "下线了哦", 0).show();
-			MediaPlayer.create(this, R.raw.msg).start();
-			break;
-		default:
-			break;
-		}
-	}
+
 
 	@Override
 	public void onBackPressed() {// 捕获返回按键事件，进入后台运行
@@ -398,40 +279,55 @@ public class FriendListActivity extends MyActivity implements OnClickListener {
 		finish();// 再结束自己
 	}
 
-
-
-	/**
-	 * 好友列表下拉刷新监听与实现，异步任务
-	 * 
-	 * @author way
-	 * 					// 从服务器重新获取好友列表
-					if (application.isClientStart()) {
-						ClientOutputThread out = application.getClient()
-								.getClientOutputThread();
-						TranObject o = new TranObject(TranObjectType.REFRESH);
-						o.setFromUser(Integer.parseInt(util.getId()));
-						out.setMsg(o);
-						// 为了及时收到服务器发过来的消息，我这里直接通过监听收消息线程，获取好友列表，就不通过接收广播了
-						ClientInputThread in = application.getClient()
-								.getClientInputThread();
-						in.setMessageListener(new MessageListener() {
-
-							@Override
-							public void Message(TranObject msg) {
-								// TODO Auto-generated method stub
-								if (msg != null
-										&& msg.getType() == TranObjectType.REFRESH) {
-									list = (List<User>) msg.getObject();
-									if (list.size() > 0) {
-										// System.out.println("Friend:" + list);
-										initListViewData(list);
-										myExAdapter.updata(group);
-										userDB.updateUser(list);// 保存到数据库
-									}
-								}
-							}
-						});
-					}
-	 */
+	@Override
+	public void getMessage(TranObject msg) {
+		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
+		switch (msg.getType()) {
+		case MESSAGE:
+			newNum++;
+			application.setRecentNum(newNum);// 保存到全局变量
+			TextMessage tm = (TextMessage) msg.getObject();
+			String message = tm.getMessage();
+			
+			int fromUser = msg.getFromUser();
+			String dailyTime = msg.getDailyTime();
+			
+			String imagePath = "/mnt/sdcard/"+fromUser+dailyTime+".bmp";
+			
+			ChatMsgEntity entity = new ChatMsgEntity("", MyDate.getDateEN(),
+					message, -1, true, imagePath);// 收到的消息
+			messageDB.saveMsg(msg.getFromUser(), entity);// 保存到数据库
+			Toast.makeText(FriendListSendActivity.this,
+					"亲！新消息哦 " + msg.getFromUser() + ":" + message, 0).show();// 提示用户
+			MediaPlayer.create(this, R.raw.msg).start();// 声音提示
+			User user2 = userDB.selectInfo(msg.getFromUser());// 通过id查询对应数据库该好友信息
+			RecentChatEntity entity2 = new RecentChatEntity(msg.getFromUser(),
+					user2.getImg(), 1, user2.getName(), MyDate.getDate(),
+					message);
+			application.getmRecentAdapter().remove(entity2);// 先移除该对象，目的是添加到首部
+			application.getmRecentList().addFirst(entity2);// 再添加到首部
+			application.getmRecentAdapter().notifyDataSetChanged();
+			break;
+		case LOGIN:
+			User loginUser = (User) msg.getObject();
+			Toast.makeText(FriendListSendActivity.this,
+					"亲！" + loginUser.getId() + "上线了哦", 0).show();
+			MediaPlayer.create(this, R.raw.msg).start();
+			loginUser.setIsOnline(1);
+			//meAdapter.notifyDataSetChanged();
+			break;
+		case LOGOUT:
+			User logoutUser = (User) msg.getObject();
+			Toast.makeText(FriendListSendActivity.this,
+					"亲！" + logoutUser.getId() + "下线了哦", 0).show();
+			MediaPlayer.create(this, R.raw.msg).start();
+			logoutUser.setIsOnline(0);
+			//meAdapter.notifyDataSetChanged();
+			break;
+		default:
+			break;
+		}
+	}
 
 }

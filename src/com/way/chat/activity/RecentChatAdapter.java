@@ -52,6 +52,7 @@ public class RecentChatAdapter extends BaseAdapter {
 	}
 
 	// 通过对象移除
+	
 	public void remove(RecentChatEntity entity) {
 		list.remove(entity);
 	}

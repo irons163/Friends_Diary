@@ -28,7 +28,7 @@ public abstract class MyActivity extends Activity {
 			TranObject msg = (TranObject) intent
 					.getSerializableExtra(Constants.MSGKEY);
 			
-			Log.e("a", msg.toString());
+			Log.e("a", "null11");
 			
 			if (msg != null) {//如果不是空，说明是消息广播
 				// System.out.println("MyActivity:" + msg);

@@ -77,12 +77,12 @@ public class RecentChatEntity {
 
 		if (object == this)// 如果是同一个对象，肯定是相同的
 			return true;
-
+/*
 		if (object instanceof RecentChatEntity) {// 如果id相同，我们就认为是同一个对象,因为id是唯一的，对于我这个小项目来说
 			RecentChatEntity entity = (RecentChatEntity) object;
 			if (entity.id == this.id)
 				return true;
-		}
+		}*/
 		return false;
 	}
 

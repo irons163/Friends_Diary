@@ -12,4 +12,6 @@ public class Constants {
 	public static final String BACKKEY_ACTION="com.way.backKey";//返回键发送广播的action
 	public static final int NOTIFY_ID = 0x911;//通知ID
 	public static final String DBNAME = "qq.db";//数据库名称
+	
+	public static String WhoCall;
 }

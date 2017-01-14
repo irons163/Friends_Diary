@@ -13,6 +13,7 @@ public class ChatMsgEntity {
 	private int img;
 	private boolean isComMeg = true;// 是否为收到的消息
 	private String dailyImg;
+	private String dailyTime;
 	
 	public ChatMsgEntity() {
 
@@ -27,6 +28,7 @@ public class ChatMsgEntity {
 		this.img = img;
 		this.isComMeg = isComMsg;
 		this.dailyImg = dailyImg;
+		this.dailyTime = dailyTime;
 	}
 
 	public String getName() {
@@ -75,6 +77,14 @@ public class ChatMsgEntity {
 
 	public void setDailyImg(String dailyImg) {
 		this.dailyImg = dailyImg;
+	}
+	
+	public String getDailyTime() {
+		return dailyImg;
+	}
+
+	public void setDailyTime(String dailyTime) {
+		this.dailyTime = dailyTime;
 	}
 	
 }

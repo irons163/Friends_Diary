@@ -9,6 +9,7 @@ import java.util.HashMap;
 
 import com.facebook.irons.HelloFacebookSampleActivity;
 import com.way.chat.activity.FriendListActivity;
+import com.way.chat.activity.FriendListSendActivity;
 import com.way.chat.common.tran.bean.TranObject;
 import com.way.chat.common.util.Constants;
 
@@ -96,8 +97,9 @@ public class MyNote extends Activity {
 		
 		TranObject msg = (TranObject) getIntent().getSerializableExtra(Constants.MSGKEY);
 		
-		intent2 = new Intent(MyNote.this, FriendListActivity.class);
+		intent2 = new Intent(MyNote.this, FriendListSendActivity.class);
 		intent2.putExtra(Constants.MSGKEY, msg);
+
 
 	}
 
@@ -349,7 +351,16 @@ public class MyNote extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				String date = strClickDate;
+				Bundle bundle = new Bundle();
+				bundle.putString("imagePath", imagePath);
+				bundle.putString("dailyTime", date);
+				bundle.putString("dailyContent", c);
+				intent2.putExtras(bundle);
 				startActivity(intent2);
+				
+				//Intent intent3 = new Intent(MyNote.this, FriendListSendActivity.class);
+				//startActivity(intent3);
 			}
 		});
 
