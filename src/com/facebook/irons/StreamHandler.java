@@ -26,10 +26,10 @@ import org.json.JSONObject;
 import android.util.Log;
 
 import com.facebook.android.AsyncFacebookRunner;
+import com.facebook.android.AsyncFacebookRunner.RequestListener;
 import com.facebook.android.Facebook;
 import com.facebook.android.FacebookError;
 import com.facebook.android.Util;
-import com.facebook.android.AsyncFacebookRunner.RequestListener;
 
 /**
  * A handler for the stream page. It's responsible for

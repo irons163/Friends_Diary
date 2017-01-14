@@ -1,8 +1,5 @@
 package tw.com.irons.try_case2;
 
-import com.way.chat.activity.LoginActivity;
-
-import tw.com.irons.calendar.CalendarActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +7,8 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+
+import com.way.chat.activity.LoginActivity;
 
 public class MainActivity extends Activity {
 	Button button, button2;

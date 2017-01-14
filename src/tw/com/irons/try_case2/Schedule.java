@@ -3,6 +3,9 @@ package tw.com.irons.try_case2;
 import static tw.com.irons.try_case2.Constant.getNowDateString;
 import static tw.com.irons.try_case2.Constant.getNowTimeString;
 import static tw.com.irons.try_case2.db.DBUtil2.getSNFromPrefs;
+
+import java.util.Calendar;
+
 import android.util.Log;
 
 public class Schedule {
@@ -20,9 +23,28 @@ public class Schedule {
 
 	// 創建新行程時的臨時資料，只需要年月日三個資料，用來在剛剛進入新建行程介面日把年月日預設設置成當前日期
 	public Schedule(int y, int m, int d) {
+		
+		Calendar c = Calendar.getInstance();
+		c.getInstance();
+		int hourOfDay =c.get(Calendar.HOUR_OF_DAY);
+		int minute = c.get(Calendar.MINUTE);
+		/*
+		String min;
+		String hour;
+		if (minute < 10) {
+			min = "0" + minute;
+		} else {
+			min = minute + "";
+		}
+		if (hourOfDay < 10) {
+			hour = "0" + hourOfDay;
+		} else {
+			hour = hourOfDay + "";
+		}*/
+		
 		sn = 0;
 		date1 = toDateString(y, m, d);
-		time1 = toTimeString(8, 0);// 時間默認8點
+		time1 = toTimeString(hourOfDay, minute);// 時間默認8點
 
 		date2 = null;
 		time2 = null;
@@ -307,6 +329,7 @@ public class Schedule {
 		String schDate = date1;
 		String schTime = timeSet ? time1 : "23:59";// 如果行程沒有設置時間，則認為過了當天23:59，也就是到了第二天才過時
 
+		// ==0  代表當天也算過期
 		if (nowDate.compareTo(schDate) > 0
 				|| (nowDate.compareTo(schDate) == 0 && nowTime
 						.compareTo(schTime) > 0)) {

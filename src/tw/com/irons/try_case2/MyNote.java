@@ -1,21 +1,11 @@
 package tw.com.irons.try_case2;
 
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
-import com.facebook.irons.HelloFacebookSampleActivity;
-import com.way.chat.activity.FriendListActivity;
-import com.way.chat.activity.FriendListSendActivity;
-import com.way.chat.common.tran.bean.TranObject;
-import com.way.chat.common.util.Constants;
-
-import tw.com.irons.calendar.CalendarActivity;
 import tw.com.irons.try_case2.db.MyDBHelper;
-
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -47,13 +37,16 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.facebook.irons.HelloFacebookSampleActivity;
+import com.way.chat.activity.FriendListSendActivity;
+import com.way.chat.common.tran.bean.TranObject;
+import com.way.chat.common.util.Constants;
 
 public class MyNote extends Activity {
 	// private TableLayout table;

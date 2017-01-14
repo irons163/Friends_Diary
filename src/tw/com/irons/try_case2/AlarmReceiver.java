@@ -4,9 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
-import tw.com.irons.try_case2.R;
 import tw.com.irons.try_case2.utils.DateUtil;
-
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -22,14 +20,14 @@ public class AlarmReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context arg0, Intent arg1) {
 		// TODO Auto-generated method stub
-		/* ¥ý¨ú±oÀÉ®×¸Ìªº³]©w­È */
+		/* ï¿½ï¿½ï¿½oï¿½É®×¸Ìªï¿½ï¿½]ï¿½wï¿½ï¿½ */
 		getFileDate(arg0);
-		/* ¦³¨ú±o³]©w­È¤~¥i°õ¦æ */
+		/* ï¿½ï¿½ï¿½ï¿½oï¿½]ï¿½wï¿½È¤~ï¿½iï¿½ï¿½ï¿½ï¿½ */
 		if (isExit) {
-			/* ¹w¦ô¤U¦¸MC¤é´Á */
+			/* ï¿½wï¿½ï¿½ï¿½Uï¿½ï¿½MCï¿½ï¿½ï¿½ */
 			String nDate = DateUtil.getNextDate(mcdate_value,
 					Integer.parseInt(period_value), "yyyy/MM/dd");
-			/* ¶ZÂ÷²{¦bÁÙ¦³N¤Ñ */
+			/* ï¿½Zï¿½ï¿½ï¿½{ï¿½bï¿½Ù¦ï¿½Nï¿½ï¿½ */
 			int days = DateUtil.computerDiffDate(DateUtil.getDateTime(DateUtil
 					.getNextDate(mcdate_value, Integer.parseInt(period_value),
 							"yyyyMMdd")), System.currentTimeMillis());
@@ -42,7 +40,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 				msg += arg0.getResources().getString(R.string.strMessage7);
 			} else {
 				msg += arg0.getResources().getString(R.string.strMessage8);
-				/* ¨úµ´¹ï­È */
+				/* ï¿½ï¿½ï¿½ï¿½ */
 				msg += Math.abs(days);
 				msg += arg0.getResources().getString(R.string.strMessage7);
 			}
@@ -79,22 +77,22 @@ public class AlarmReceiver extends BroadcastReceiver {
 
 	private void showNotification(Context arg0, String msg) {
 		/*
-		 * ·s¼WNotification ¶Ç¤JÅã¥Üªºicon¦bª¬ºA¯PÅã¥Üªº°T®§¥H¤ÎÅã¥Üªº®É¶¡
+		 * ï¿½sï¿½WNotification ï¿½Ç¤Jï¿½ï¿½Üªï¿½iconï¿½bï¿½ï¿½ï¿½Aï¿½Pï¿½ï¿½Üªï¿½ï¿½Tï¿½ï¿½ï¿½Hï¿½ï¿½ï¿½ï¿½Üªï¿½ï¿½É¶ï¿½
 		 */
 		Notification notification = new Notification(R.drawable.icon,
 				"mc date remind", System.currentTimeMillis());
-		/* ÂI¿ï°T®§¶}±Òªºµe­± */
+		/* ï¿½Iï¿½ï¿½Tï¿½ï¿½ï¿½}ï¿½Òªï¿½ï¿½eï¿½ï¿½ */
 		PendingIntent contentIntent = PendingIntent.getActivity(arg0, 0,
 				new Intent(arg0, MC.class), 0);
-		/* ¶Ç¤JÅã¥Üªº°T®§ */
+		/* ï¿½Ç¤Jï¿½ï¿½Üªï¿½ï¿½Tï¿½ï¿½ */
 		notification.setLatestEventInfo(arg0, "you next mc date!!", msg,
 				contentIntent);
-		/* ¨ú±o NotificationManager */
+		/* ï¿½ï¿½o NotificationManager */
 		NotificationManager mNM = (NotificationManager) arg0
 				.getSystemService(Context.NOTIFICATION_SERVICE);
-		/* ¥ý§R°£¤§«eªºNotification */
+		/* ï¿½ï¿½Rï¿½ï¿½ï¿½ï¿½ï¿½eï¿½ï¿½Notification */
 		mNM.cancel(0);
-		/* notify·sªºNotification */
+		/* notifyï¿½sï¿½ï¿½Notification */
 		mNM.notify(0, notification);
 	}
 }

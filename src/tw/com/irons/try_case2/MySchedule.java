@@ -7,7 +7,6 @@ import static tw.com.irons.try_case2.Constant.DIALOG_SCH_DEL_CONFIRM;
 import static tw.com.irons.try_case2.Constant.DIALOG_SET_DATETIME;
 import static tw.com.irons.try_case2.Constant.DIALOG_SET_SEARCH_RANGE;
 import static tw.com.irons.try_case2.Constant.getNowDateString;
-import static tw.com.irons.try_case2.db.DBUtil2.deletePassedSchedule;
 import static tw.com.irons.try_case2.db.DBUtil2.deleteSchedule;
 import static tw.com.irons.try_case2.db.DBUtil2.deleteType;
 import static tw.com.irons.try_case2.db.DBUtil2.getAllType;
@@ -29,7 +28,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
-import android.app.AlertDialog.Builder;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -38,10 +36,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -55,6 +50,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -110,6 +107,9 @@ public class MySchedule extends Activity {
 	TextView tvTime;
 	String hour;
 	String min;
+	
+	int hightlight;
+	View v;
 	/*
 	 * 臨時記錄新建行程介面裡的類型spinner的position，因為設置時間的對話方塊cancel後
 	 * 回到新建行程介面時會刷新所有控制項，spinner中以選中的項目也會回到默認
@@ -369,6 +369,9 @@ public class MySchedule extends Activity {
 		bDone.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				if((hour!=null)   && (min!=null)){
+				schTemp.setTime1(hour, min);
+				}
 				// 讓新建的行程時間和當前時間比較看是否過期
 				if (schTemp.isPassed()) {
 					Toast.makeText(MySchedule.this, "不能創建過期行程",
@@ -386,7 +389,7 @@ public class MySchedule extends Activity {
 				schTemp.setNote(note);
 				String type = (String) spType.getSelectedItem();
 				schTemp.setType(type);
-				schTemp.setTime1(hour, min);
+
 				schTemp.setLittleImage(littleImage);
 
 				if (wcNewOrEdit == WhoCall.NEW)// 如果當前介面是新建行程，調用插入行程方法
@@ -1380,6 +1383,8 @@ public class MySchedule extends Activity {
 						R.id.tvdialogcheckTime1 });
 		// new SimpleCurs
 
+		v = new View(this);
+		
 		listView.setAdapter(adapter);
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
@@ -1387,15 +1392,32 @@ public class MySchedule extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
+				//listView.requestFocusFromTouch();
+				//listView.setSelection(arg2);
 				// TODO Auto-generated method stub
-				if (chooseList != null) {
-					chooseList.setBackgroundColor(0);
-				}
-				chooseList = arg1;
-				// arg1.setPressed(true);
-				arg1.setBackgroundColor(Color.GREEN);
+				/*
+		        for(int i=0;i<arg0.getCount();i++){
+		            View v=arg0.getChildAt(i);
+		            if (arg2 == i) {
+		                v.setBackgroundColor(Color.RED);
+		            } else {
+		                v.setBackgroundColor(0);
+		            }
+		        }*/
+				
+	            if (((ListView)arg0).getTag() != null){
 
-				bCheck.setEnabled(true);// 這三個按鈕分別為主介面的行程查看、行程修改、行程刪除,
+                    ((View)((ListView)arg0).getTag()).setBackgroundColor(0);
+
+            }
+
+            ((ListView)arg0).setTag(arg1);
+
+            arg1.setBackgroundColor(Color.GREEN);
+            
+            hightlight = arg2;
+            v = arg1;
+		
 				bEdit.setEnabled(true);// 預設設為不可用狀態
 				bDel.setEnabled(true);
 
@@ -1403,6 +1425,27 @@ public class MySchedule extends Activity {
 				littleImage = schTemp.getLittleImage();
 			}
 		});
+		
+		listView.setOnScrollListener(new OnScrollListener() {
+			
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onScroll(AbsListView view, int firstVisibleItem,
+					int visibleItemCount, int totalItemCount) {
+				// TODO Auto-generated method stub
+				//if((firstVisibleItem>hightlight) || (firstVisibleItem+visibleItemCount <hightlight)){
+				if((firstVisibleItem-1==hightlight)||(firstVisibleItem+visibleItemCount==hightlight)){	
+				v.setBackgroundColor(0);}
+			
+			}
+		});
+		
+		
 	}
 
 	private class myResetReceiver extends BroadcastReceiver {

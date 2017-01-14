@@ -1,22 +1,19 @@
 package tw.com.irons.try_case2;
 
-import com.way.chat.activity.FriendListActivity;
-import com.way.chat.common.tran.bean.TranObject;
-import com.way.chat.common.util.Constants;
-
-import tw.com.irons.calendar.CalendarActivity;
 import tw.com.irons.try_case2.db.MyDBHelper;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TabHost;
+
+import com.way.chat.activity.FriendListActivity;
+import com.way.chat.common.tran.bean.TranObject;
+import com.way.chat.common.util.Constants;
 
 public class MainMenu extends Activity {
 	Button button, button2, button3, button4, button5, button6, button7,

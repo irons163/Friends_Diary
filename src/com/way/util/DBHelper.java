@@ -1,10 +1,10 @@
 package com.way.util;
 
-import com.way.chat.common.util.Constants;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.way.chat.common.util.Constants;
 
 public class DBHelper extends SQLiteOpenHelper {
 

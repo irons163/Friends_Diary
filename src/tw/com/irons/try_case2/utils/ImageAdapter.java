@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
@@ -48,7 +47,7 @@ public class ImageAdapter extends BaseAdapter {
 		if (convertView == null) {
 			// if it's not recycled, initialize some attributes
 			imageView = new ImageView(mContext);
-			// ³]©w¹Ï¤ùªº¼e¡B°ª
+			// ï¿½]ï¿½wï¿½Ï¤ï¿½eï¿½Bï¿½ï¿½
 			imageView.setLayoutParams(new GridView.LayoutParams(width, height));
 			imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 			imageView.setPadding(8, 8, 8, 8);
@@ -70,7 +69,7 @@ public class ImageAdapter extends BaseAdapter {
 			Log.e("gg", "1");
 
 		} else {
-			// ³]©w¹Ï¤ù¨Ó·½
+			// ï¿½]ï¿½wï¿½Ï¤ï¿½Ó·ï¿½
 			imageView.setImageResource(mImageIds[position]);
 			Log.e("gg", "2");
 		}

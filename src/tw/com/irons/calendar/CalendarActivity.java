@@ -16,15 +16,9 @@
 
 package tw.com.irons.calendar;
 
-import com.way.chat.common.tran.bean.TranObject;
-import com.way.chat.common.util.Constants;
-
 import tw.com.irons.try_case2.MainMenu;
 import tw.com.irons.try_case2.R;
 import tw.com.irons.try_case2.SetMenu;
-import tw.com.irons.try_case2.R.drawable;
-import tw.com.irons.try_case2.R.id;
-import tw.com.irons.try_case2.R.layout;
 import tw.com.irons.try_case2.utils.DateUtil2;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -35,13 +29,15 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.format.DateUtils;
-import android.text.style.ClickableSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.way.chat.common.tran.bean.TranObject;
+import com.way.chat.common.util.Constants;
 
 public class CalendarActivity extends Activity  implements CalendarView.OnCellTouchListener{
 	public static final String MIME_TYPE = "vnd.android.cursor.dir/vnd.exina.android.calendar.date";

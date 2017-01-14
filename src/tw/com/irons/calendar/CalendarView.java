@@ -18,13 +18,8 @@ package tw.com.irons.calendar;
 
 import java.util.Calendar;
 
-import tw.com.irons.try_case2.MC;
 import tw.com.irons.try_case2.R;
-import tw.com.irons.try_case2.R.dimen;
-import tw.com.irons.try_case2.R.drawable;
-
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;

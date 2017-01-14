@@ -17,6 +17,9 @@ public class Client {
 	private String ip;
 	private int port;
 
+	boolean waitboolean;
+	boolean clientboolean;
+	
 	public Client(String ip, int port) {
 		this.ip = ip;
 		this.port = port;
@@ -38,8 +41,49 @@ public class Client {
 			return false;
 		}
 		return true;
+		
+		//new Thread(downloadRun).start();
+		
+		/*
+		int i=0;
+		while(waitboolean){
+		
+		}
+		waitboolean = true;
+		return clientboolean;*/
 	}
+/*
+	  Runnable downloadRun = new Runnable(){  
+		  
+		  @Override  
+		  public void run() {  
+		      // TODO Auto-generated method stub  
+				try {
+					
+					
+					client = new Socket();
+					// client.connect(new InetSocketAddress(Constants.SERVER_IP,
+					// Constants.SERVER_PORT), 3000);
+					client.connect(new InetSocketAddress(ip, port), 3000);
+					if (client.isConnected()) {
+						// System.out.println("Connected..");
+						clientThread = new ClientThread(client);
+						clientThread.start();
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+					clientboolean = false;
+					waitboolean = false;
+					
+				}
+				clientboolean = true;
+				waitboolean = false;
+		  }  
+		    };  
+		*/    
 
+	
+	
 	// 直接通过client得到读线程
 	public ClientInputThread getClientInputThread() {
 		return clientThread.getIn();

@@ -1,5 +1,11 @@
 package tw.com.irons.try_case2.db;
 
+import static android.content.Context.MODE_PRIVATE;
+import static tw.com.irons.try_case2.Constant.getNowDateString;
+import static tw.com.irons.try_case2.Constant.getNowTimeString;
+import static tw.com.irons.try_case2.MySchedule.alSch;
+import static tw.com.irons.try_case2.MySchedule.alType;
+
 import java.util.ArrayList;
 
 import tw.com.irons.try_case2.MySchedule;
@@ -10,8 +16,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.widget.Toast;
-import static tw.com.irons.try_case2.Constant.*;
-import static tw.com.irons.try_case2.MySchedule.*;
 
 public class DBUtil2 {
 	static SQLiteDatabase sld;

@@ -1,7 +1,5 @@
 package tw.com.irons.try_case2;
 
-import java.util.Calendar;
-
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -16,8 +14,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public class Notice extends Activity {
@@ -66,7 +62,7 @@ public class Notice extends Activity {
 				// TODO Auto-generated method stub
 				mcIsCheck = isChecked;
 				if (isChecked) {
-					/* 1¤Ñªº²@¬í */
+					/* 1ï¿½Ñªï¿½ï¿½@ï¿½ï¿½ */
 					SharedPreferences preferences = getSharedPreferences(
 							"clickDate", 0);
 					mcNoticTime = preferences.getInt("mcNoticTime", 0);
@@ -84,7 +80,7 @@ public class Notice extends Activity {
 
 				} else {
 
-					/* ¥ý±NAlarmManager°±¤î */
+					/* ï¿½ï¿½NAlarmManagerï¿½ï¿½ï¿½ï¿½ */
 					am.cancel(sender);
 				}
 
@@ -99,7 +95,7 @@ public class Notice extends Activity {
 		Intent receiverIntent = new Intent(Notice.this, AlarmReceiver.class);
 		sender = PendingIntent.getBroadcast(Notice.this, 1, receiverIntent, 0);
 
-		/* ¨ú±oAlarmManagerªA°È */
+		/* ï¿½ï¿½oAlarmManagerï¿½Aï¿½ï¿½ */
 
 		am = (AlarmManager) getSystemService(ALARM_SERVICE);
 

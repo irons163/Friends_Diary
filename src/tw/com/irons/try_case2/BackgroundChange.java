@@ -10,22 +10,16 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 
 public class BackgroundChange extends Activity {
 	Button button, button2;
@@ -64,7 +58,7 @@ public class BackgroundChange extends Activity {
 
 				GridView gridView01 = (GridView) findViewById(R.id.GridView01);
 				gridView01.setAdapter(new ImageAdapter(BackgroundChange.this,
-						85, 85, mImageIds, res)); // ³]©w image ±µ¤f
+						85, 85, mImageIds, res)); // ï¿½]ï¿½w image ï¿½ï¿½ï¿½f
 				gridView01.setOnItemClickListener(new OnItemClickListener() {
 
 					@Override
@@ -73,9 +67,9 @@ public class BackgroundChange extends Activity {
 						// TODO Auto-generated method stub
 						final PopupWindow popWin = new PopupWindow(
 								BackgroundChange.this);
-						// ©w¸q PopupWindow ¤º§tªº ImageView
+						// ï¿½wï¿½q PopupWindow ï¿½ï¿½ï¿½tï¿½ï¿½ ImageView
 						ImageView iv = new ImageView(BackgroundChange.this);
-						// ¦b ImageView ¤¤³]©w¹Ï¼Ë
+						// ï¿½b ImageView ï¿½ï¿½ï¿½]ï¿½wï¿½Ï¼ï¿½
 						iv.setImageDrawable(getResources().getDrawable(
 								mImageIds[position]));
 
@@ -83,11 +77,11 @@ public class BackgroundChange extends Activity {
 
 						AlertDialog.Builder builder = new AlertDialog.Builder(
 								BackgroundChange.this);
-						builder.setTitle("¥D¿ï³æ­I´º¼Ë¦¡");
+						builder.setTitle("ï¿½Dï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½Ë¦ï¿½");
 						builder.setView(iv);
 						builder.setCancelable(true);
 
-						builder.setPositiveButton("½T©w",
+						builder.setPositiveButton("ï¿½Tï¿½w",
 								new DialogInterface.OnClickListener() {
 									@Override
 									public void onClick(DialogInterface dialog,
@@ -106,7 +100,7 @@ public class BackgroundChange extends Activity {
 									}
 								});
 
-						builder.setNegativeButton("¨ú®ø",
+						builder.setNegativeButton("ï¿½ï¿½ï¿½",
 								new DialogInterface.OnClickListener() {
 									@Override
 									public void onClick(DialogInterface dialog,
@@ -147,7 +141,7 @@ public class BackgroundChange extends Activity {
 				layout.setBackgroundColor(Color.BLACK);
 				GridView gridView01 = (GridView) findViewById(R.id.GridView01);
 				gridView01.setAdapter(new ImageAdapter(BackgroundChange.this,
-						120, 120, mImageIds, res)); // ³]©w image ±µ¤f
+						120, 120, mImageIds, res)); // ï¿½]ï¿½w image ï¿½ï¿½ï¿½f
 				gridView01.setOnItemClickListener(new OnItemClickListener() {
 
 					@Override
@@ -158,7 +152,7 @@ public class BackgroundChange extends Activity {
 								BackgroundChange.this);
 
 						ImageView iv = new ImageView(BackgroundChange.this);
-						// ¦b ImageView ¤¤³]©w¹Ï¼Ë
+						// ï¿½b ImageView ï¿½ï¿½ï¿½]ï¿½wï¿½Ï¼ï¿½
 						iv.setImageDrawable(getResources().getDrawable(
 								mImageIds[position]));
 
@@ -166,11 +160,11 @@ public class BackgroundChange extends Activity {
 
 						AlertDialog.Builder builder = new AlertDialog.Builder(
 								BackgroundChange.this);
-						builder.setTitle("­I´º¼Ë¦¡");
+						builder.setTitle("ï¿½Iï¿½ï¿½ï¿½Ë¦ï¿½");
 						builder.setView(iv);
 						builder.setCancelable(true);
 
-						builder.setPositiveButton("½T©w",
+						builder.setPositiveButton("ï¿½Tï¿½w",
 								new DialogInterface.OnClickListener() {
 									@Override
 									public void onClick(DialogInterface dialog,
@@ -193,7 +187,7 @@ public class BackgroundChange extends Activity {
 									}
 								});
 
-						builder.setNegativeButton("¨ú®ø",
+						builder.setNegativeButton("ï¿½ï¿½ï¿½",
 								new DialogInterface.OnClickListener() {
 									@Override
 									public void onClick(DialogInterface dialog,

@@ -2,12 +2,12 @@ package com.way.chat.activity;
 
 import java.util.LinkedList;
 
+import android.app.Application;
+import android.app.NotificationManager;
+
 import com.way.chat.common.util.Constants;
 import com.way.client.Client;
 import com.way.util.SharePreferenceUtil;
-
-import android.app.Application;
-import android.app.NotificationManager;
 
 public class MyApplication extends Application {
 	private Client client;// 客户端

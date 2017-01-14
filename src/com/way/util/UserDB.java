@@ -3,11 +3,11 @@ package com.way.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.way.chat.common.bean.User;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.way.chat.common.bean.User;
 
 public class UserDB {
 	private DBHelper helper;

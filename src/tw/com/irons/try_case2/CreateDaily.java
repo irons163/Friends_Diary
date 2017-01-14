@@ -4,10 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.util.HashMap;
 
 import tw.com.irons.try_case2.db.MyDBHelper;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
@@ -69,11 +67,11 @@ public class CreateDaily extends Activity {
 				// TODO Auto-generated method stub
 
 				Intent intent = new Intent();
-				/* ¶}±ÒPicturesµe­±Type³]©w¬°image */
+				/* ï¿½}ï¿½ï¿½Picturesï¿½eï¿½ï¿½Typeï¿½]ï¿½wï¿½ï¿½image */
 				intent.setType("image/*");
-				/* ¨Ï¥ÎIntent.ACTION_GET_CONTENT³o­ÓAction */
+				/* ï¿½Ï¥ï¿½Intent.ACTION_GET_CONTENTï¿½oï¿½ï¿½Action */
 				intent.setAction(Intent.ACTION_GET_CONTENT);
-				/* ¨ú±o¬Û¤ù«áªð¦^¥»µe­± */
+				/* ï¿½ï¿½oï¿½Û¤ï¿½ï¿½ï¿½^ï¿½ï¿½ï¿½eï¿½ï¿½ */
 				startActivityForResult(intent, 1);
 			}
 		});
@@ -188,7 +186,7 @@ public class CreateDaily extends Activity {
 
 				final TextView[] textViews = new TextView[20];
 
-				// Â²³æªº¤èªk¼È®É·Q¤£¥X¨Ó
+				// Â²ï¿½æªºï¿½ï¿½kï¿½È®É·Qï¿½ï¿½ï¿½Xï¿½ï¿½
 				/*
 				 * for(int i=0;i<20;i++){
 				 * 
@@ -242,11 +240,11 @@ public class CreateDaily extends Activity {
 
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						CreateDaily.this);
-				builder.setTitle("½Ð¿ï¾Ü±ý´¡¤Jªºªí±¡²Å¸¹");
+				builder.setTitle("ï¿½Ð¿ï¿½Ü±ï¿½Jï¿½ï¿½ï¿½?ï¿½Å¸ï¿½");
 				builder.setView(dview);
 				builder.setCancelable(true);
 
-				builder.setPositiveButton("½T©w",
+				builder.setPositiveButton("ï¿½Tï¿½w",
 						new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog,
@@ -257,7 +255,7 @@ public class CreateDaily extends Activity {
 
 						});
 
-				builder.setNegativeButton("¨ú®ø",
+				builder.setNegativeButton("ï¿½ï¿½ï¿½",
 						new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog,
@@ -288,18 +286,18 @@ public class CreateDaily extends Activity {
 
 				Drawable drawable = new BitmapDrawable(bitmap);
 
-				/* ±NBitmap³]©w¨ìImageView */
+				/* ï¿½NBitmapï¿½]ï¿½wï¿½ï¿½ImageView */
 				myImageView01.setImageBitmap(bitmap);
 				myImageView01.setAdjustViewBounds(true);
 				myImageView01.setMaxWidth(100);
 				myImageView01.setMaxHeight(100);
 				// myImageView01.setBackground(null);
 
-				// ¨ú±o­ì©l¹ÏÀÉ¦WºÙ
+				// ï¿½ï¿½oï¿½ï¿½lï¿½ï¿½ï¿½É¦Wï¿½ï¿½
 				fileName = uri.getPath().substring(
 						uri.getPath().lastIndexOf("/"));
 
-				// SD Card ¥Øªº¸ê®Æ§¨
+				// SD Card ï¿½Øªï¿½ï¿½ï¿½Æ§ï¿½
 				extStorage = Environment.getExternalStorageDirectory()
 						.getAbsolutePath() + "/thumbnail";
 

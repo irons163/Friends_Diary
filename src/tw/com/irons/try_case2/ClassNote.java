@@ -10,17 +10,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 public class ClassNote extends Activity {
 	Button[] btns = new Button[35];
@@ -63,11 +58,11 @@ public class ClassNote extends Activity {
 
 					AlertDialog.Builder builder = new AlertDialog.Builder(
 							ClassNote.this);
-					builder.setTitle("½Òªí¸ê°T");
+					builder.setTitle("ï¿½Òªï¿½ï¿½T");
 					builder.setView(dview);
 					builder.setCancelable(true);
 
-					builder.setPositiveButton("½T©w",
+					builder.setPositiveButton("ï¿½Tï¿½w",
 							new DialogInterface.OnClickListener() {
 								@Override
 								public void onClick(DialogInterface dialog,
@@ -83,7 +78,7 @@ public class ClassNote extends Activity {
 								}
 							});
 
-					builder.setNegativeButton("¨ú®ø",
+					builder.setNegativeButton("ï¿½ï¿½ï¿½",
 							new DialogInterface.OnClickListener() {
 								@Override
 								public void onClick(DialogInterface dialog,

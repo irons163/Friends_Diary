@@ -3,13 +3,11 @@ package com.way.chat.activity;
 import java.util.List;
 
 import tw.com.irons.try_case2.R;
-import tw.com.irons.try_case2.Constant.WhoCall;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Adapter;
@@ -17,16 +15,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.way.chat.common.bean.TextMessage;
 import com.way.chat.common.bean.User;
-import com.way.chat.common.tran.bean.TranObject;
-import com.way.chat.common.tran.bean.TranObjectType;
 import com.way.chat.common.util.Constants;
-import com.way.client.Client;
-import com.way.client.ClientOutputThread;
 import com.way.util.GroupFriend;
 import com.way.util.MessageDB;
-import com.way.util.MyDate;
 import com.way.util.SharePreferenceUtil;
 
 /**

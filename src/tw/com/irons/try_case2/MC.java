@@ -8,34 +8,25 @@ import java.util.Calendar;
 import java.util.Properties;
 
 import tw.com.irons.try_case2.utils.DateUtil;
-
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.app.TabActivity;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.TabHost;
 import android.widget.TextView;
 
 public class MC extends Activity {
-	/* ©ñ¸m³]©w­ÈªºÀÉ®× */
+	/* ï¿½ï¿½mï¿½]ï¿½wï¿½Èªï¿½ï¿½É®ï¿½ */
 	public static String fileName = "mc.ini";
-	/* ¤W¦¸MC²Ä¤@¤Ñªº¤é´Á */
+	/* ï¿½Wï¿½ï¿½MCï¿½Ä¤@ï¿½Ñªï¿½ï¿½ï¿½ï¿½ */
 	public static String mcdate_key = "mcdate";
 	private String mcdate_value = "";
-	/* MC¶g´Á */
+	/* MCï¿½gï¿½ï¿½ */
 	public static String period_key = "period";
 	private String period_value = "28";
-	/* ¨C¤é´£¿ô®É¶¡ */
+	/* ï¿½Cï¿½é´£ï¿½ï¿½ï¿½É¶ï¿½ */
 	public static String remind_key = "remind";
 	private String remind_value = "1200";
 
@@ -80,15 +71,15 @@ public class MC extends Activity {
 		EditText01 = (EditText) this.findViewById(R.id.EditText01);
 		Button01 = (Button) this.findViewById(R.id.Button01);
 
-		/* MC¶g´Á */
+		/* MCï¿½gï¿½ï¿½ */
 		EditText01.setText(period_value);
 
-		/* ÀË¬dÀÉ®×mc.ini¬O§_¦s¦b */
+		/* ï¿½Ë¬dï¿½É®ï¿½mc.iniï¿½Oï¿½_ï¿½sï¿½b */
 		checkFile();
-		/* ºâ¦³Ãö¤é´Á */
+		/* ï¿½â¦³ï¿½ï¿½ï¿½ï¿½ï¿½ */
 		calDate();
 
-		/* ¤W¦¸MC²Ä¤@¤Ñªº¤é´Á³]©w©óDatePicker */
+		/* ï¿½Wï¿½ï¿½MCï¿½Ä¤@ï¿½Ñªï¿½ï¿½ï¿½ï¿½ï¿½]ï¿½wï¿½ï¿½DatePicker */
 		Calendar calendar = Calendar.getInstance();
 		if (mcdate_value != null) {
 			mYear = Integer.parseInt(mcdate_value.substring(0, 4));
@@ -101,14 +92,14 @@ public class MC extends Activity {
 		}
 		DatePicker01.init(mYear, mMonth, mDay, null);
 
-		/* Àx¦s³]©w */
+		/* ï¿½xï¿½sï¿½]ï¿½w */
 		Button01.setOnClickListener(new Button.OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
 				FileOutputStream fos;
 				try {
-					/* ¨ú±oDatePickerªº¤é´Á */
+					/* ï¿½ï¿½oDatePickerï¿½ï¿½ï¿½ï¿½ï¿½ */
 					int m = DatePicker01.getMonth() + 1;
 					String strM = m >= 10 ? "" + m : "0" + m;
 					int d = DatePicker01.getDayOfMonth();
@@ -116,7 +107,7 @@ public class MC extends Activity {
 					mcdate_value = "" + DatePicker01.getYear() + "" + strM + ""
 							+ strD;
 
-					/* ¨ú±oEditTextªº­È */
+					/* ï¿½ï¿½oEditTextï¿½ï¿½ï¿½ï¿½ */
 					period_value = EditText01.getText().toString();
 
 					fos = openFileOutput(MC.fileName, MODE_WORLD_WRITEABLE);
@@ -149,7 +140,7 @@ public class MC extends Activity {
 
 	}
 
-	/* ÀË¬dÀÉ®×mc.ini¬O§_¦s¦b */
+	/* ï¿½Ë¬dï¿½É®ï¿½mc.iniï¿½Oï¿½_ï¿½sï¿½b */
 	private void checkFile() {
 		boolean isExit = true;
 
@@ -164,16 +155,16 @@ public class MC extends Activity {
 				fos = openFileOutput(fileName, MODE_WORLD_WRITEABLE);
 				BufferedOutputStream bos = new BufferedOutputStream(fos);
 
-				/* ¨t²Î¤é´Á¬°¤W¦¸MC²Ä¤@¤Ñªº¤é´Á */
+				/* ï¿½tï¿½Î¤ï¿½ï¿½ï¿½ï¿½ï¿½Wï¿½ï¿½MCï¿½Ä¤@ï¿½Ñªï¿½ï¿½ï¿½ï¿½ */
 				mcdate_value = DateUtil.getDateTime("yyyyMMdd",
 						System.currentTimeMillis());
 				String txt = mcdate_key + "=" + mcdate_value;
 				bos.write(txt.getBytes());
-				/* ¶g´Á¬°28¤Ñ */
+				/* ï¿½gï¿½ï¿½ï¿½ï¿½28ï¿½ï¿½ */
 				bos.write(new String("\n").getBytes());
 				txt = period_key + "=" + period_value;
 				bos.write(txt.getBytes());
-				/* ´£¿ô®É¶¡¬°¤¤¤È12ÂI */
+				/* ï¿½ï¿½ï¿½ï¿½ï¿½É¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½12ï¿½I */
 				bos.write(new String("\n").getBytes());
 				txt = remind_key + "=" + remind_value;
 				bos.write(txt.getBytes());
@@ -187,7 +178,7 @@ public class MC extends Activity {
 				e.printStackTrace();
 			}
 		}
-		/* ±NÀÉ®×mc.ini¸Ìªº­È¨ú¥X */
+		/* ï¿½Nï¿½É®ï¿½mc.iniï¿½Ìªï¿½ï¿½È¨ï¿½X */
 		Properties p = new Properties();
 		try {
 			p.load(openFileInput(fileName));
@@ -205,14 +196,14 @@ public class MC extends Activity {
 
 		String format = "yyyy.MM.dd";
 
-		/* ¤W¦¸MC²Ä¤@¤Ñªº¤é´Á */
+		/* ï¿½Wï¿½ï¿½MCï¿½Ä¤@ï¿½Ñªï¿½ï¿½ï¿½ï¿½ */
 		/*
 		 * TextView02.setText(DateUtil .getNextDate(mcdate_value, 0, format));
 		 */
 		DateUtil.getNextDate(mcdate_value, 0, format);
 		calendar1 = DateUtil.calendar;
 
-		/* ¹w¦ô¤U¦¸MC¤é´Á */
+		/* ï¿½wï¿½ï¿½ï¿½Uï¿½ï¿½MCï¿½ï¿½ï¿½ */
 		TextView04.setText(DateUtil.getNextDate(mcdate_value,
 				Integer.parseInt(period_value), format));
 
@@ -228,7 +219,7 @@ public class MC extends Activity {
 		editor.putInt("mcYear", mcYear);
 		editor.commit();
 
-		/* ¶ZÂ÷²{¦bÁÙ¦³N¤Ñ */
+		/* ï¿½Zï¿½ï¿½ï¿½{ï¿½bï¿½Ù¦ï¿½Nï¿½ï¿½ */
 		String nDate = DateUtil.getNextDate(mcdate_value,
 				Integer.parseInt(period_value), "yyyyMMdd");
 		int days = DateUtil.computerDiffDate(DateUtil.getDateTime(nDate),
@@ -245,7 +236,7 @@ public class MC extends Activity {
 		}
 		TextView05.setText(text);
 
-		/* ±Æ§Z¤é¡A¤½¦¡=§Y±q¤U¦¸¤ë¸g¨Ó¼éªº²Ä¤@¤Ñ°_¡A­Ë¼Æ14¤Ñ´N¬O±Æ§Z´Á */
+		/* ï¿½Æ§Zï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½=ï¿½Yï¿½qï¿½Uï¿½ï¿½ï¿½ï¿½gï¿½Ó¼éªºï¿½Ä¤@ï¿½Ñ°_ï¿½Aï¿½Ë¼ï¿½14ï¿½Ñ´Nï¿½Oï¿½Æ§Zï¿½ï¿½ */
 		TextView08.setText(DateUtil.getNextDate(nDate, -14, format));
 		calendar3 = DateUtil.calendar;
 

@@ -23,7 +23,6 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -59,11 +58,7 @@ import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.SessionLoginBehavior;
 import com.facebook.SessionState;
-import com.facebook.android.AsyncFacebookRunner;
 import com.facebook.android.AsyncFacebookRunner.RequestListener;
-import com.facebook.android.DialogError;
-import com.facebook.android.Facebook;
-import com.facebook.android.Facebook.DialogListener;
 import com.facebook.android.FacebookError;
 import com.facebook.android.Util;
 
@@ -176,16 +171,16 @@ public class HelloFacebookSampleActivity extends FacebookActivity {
         		final EditText et = new EditText(HelloFacebookSampleActivity.this);
   
         				
-        		et.setText("¤é°O¼ÐÃD:"+title+"¡C¤é°O¤º®e:"+content+"¡C¬ö¿ý®É¶¡"+time);
+        		et.setText("ï¿½ï¿½Oï¿½ï¿½ï¿½D:"+title+"ï¿½Cï¿½ï¿½Oï¿½ï¿½ï¿½e:"+content+"ï¿½Cï¿½ï¿½ï¿½ï¿½É¶ï¿½"+time);
         		
         		
         		AlertDialog.Builder builder = new AlertDialog.Builder(HelloFacebookSampleActivity.this);
-        		builder.setTitle("¤À¨É¸ê°T");
+        		builder.setTitle("ï¿½ï¿½ï¿½É¸ï¿½T");
         		builder.setView(et);
         		builder.setCancelable(true);
         		
         		
-        		builder.setPositiveButton("½T©w", 
+        		builder.setPositiveButton("ï¿½Tï¿½w", 
         				new DialogInterface.OnClickListener(){
         			@Override
         			public void onClick(DialogInterface dialog, int which) {
@@ -195,7 +190,7 @@ public class HelloFacebookSampleActivity extends FacebookActivity {
         			
         		});
 
-        		builder.setNegativeButton("¨ú®ø", 
+        		builder.setNegativeButton("ï¿½ï¿½ï¿½", 
         				new DialogInterface.OnClickListener(){
         			@Override
         			public void onClick(DialogInterface dialog, int which) {
@@ -246,16 +241,16 @@ public class HelloFacebookSampleActivity extends FacebookActivity {
 	    		image = BitmapFactory.decodeFile(imagePath);
 	    		final EditText et=(EditText)dview.findViewById(R.id.editText2);
 	    		dailyImage.setImageBitmap(image);
-	    		et.setText("¤é°O¼ÐÃD:"+title+"¡C¤é°O¤º®e:"+content+"¡C¬ö¿ý®É¶¡"+time);
+	    		et.setText("ï¿½ï¿½Oï¿½ï¿½ï¿½D:"+title+"ï¿½Cï¿½ï¿½Oï¿½ï¿½ï¿½e:"+content+"ï¿½Cï¿½ï¿½ï¿½ï¿½É¶ï¿½"+time);
 	    		changeToDailyImage.setEnabled(false);
 	    		
 	    		AlertDialog.Builder builder = new AlertDialog.Builder(HelloFacebookSampleActivity.this);
-	    		builder.setTitle("¤À¨É¸ê°T");
+	    		builder.setTitle("ï¿½ï¿½ï¿½É¸ï¿½T");
 	    		builder.setView(dview);
 	    		builder.setCancelable(true);
 	    		
 	    		
-	    		builder.setPositiveButton("½T©w", 
+	    		builder.setPositiveButton("ï¿½Tï¿½w", 
 	    				new DialogInterface.OnClickListener(){
 	    			@Override
 	    			public void onClick(DialogInterface dialog, int which) {
@@ -292,7 +287,7 @@ public class HelloFacebookSampleActivity extends FacebookActivity {
 	    				
 	    				
 	    				  Bitmap bmp = BitmapFactory.decodeFile(imagePath);
-		    				// ¤w©ç·Óªº¬Û¤ù¬O¦b¦b SD ¥d¤W, ©Ò¥H±N SD ¥d¤º®eÅª¥XÂà§@ bytes[]
+		    				// ï¿½wï¿½ï¿½Óªï¿½ï¿½Û¤ï¿½Oï¿½bï¿½b SD ï¿½dï¿½W, ï¿½Ò¥Hï¿½N SD ï¿½dï¿½ï¿½ï¿½eÅªï¿½Xï¿½ï¿½@ bytes[]
 		    				     ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		    				     bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
 		    				     final byte[] data = baos.toByteArray();
@@ -333,7 +328,7 @@ public class HelloFacebookSampleActivity extends FacebookActivity {
 	    				*/
 	    				/*
 	    				  Bitmap bmp = BitmapFactory.decodeFile(imagePath);
-	    				// ¤w©ç·Óªº¬Û¤ù¬O¦b¦b SD ¥d¤W, ©Ò¥H±N SD ¥d¤º®eÅª¥XÂà§@ bytes[]
+	    				// ï¿½wï¿½ï¿½Óªï¿½ï¿½Û¤ï¿½Oï¿½bï¿½b SD ï¿½dï¿½W, ï¿½Ò¥Hï¿½N SD ï¿½dï¿½ï¿½ï¿½eÅªï¿½Xï¿½ï¿½@ bytes[]
 	    				     ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	    				     bmp.compress(Bitmap.CompressFormat.PNG, 100, baos);
 	    				     final byte[] data = baos.toByteArray();
@@ -518,7 +513,7 @@ public class HelloFacebookSampleActivity extends FacebookActivity {
 	    			
 	    		});
 
-	    		builder.setNegativeButton("¨ú®ø", 
+	    		builder.setNegativeButton("ï¿½ï¿½ï¿½", 
 	    				new DialogInterface.OnClickListener(){
 	    			@Override
 	    			public void onClick(DialogInterface dialog, int which) {
@@ -698,22 +693,22 @@ public class HelloFacebookSampleActivity extends FacebookActivity {
     		image = BitmapFactory.decodeFile(imagePath);
     		if(image==null){
     			Builder builder = new Builder(this);
-    			builder.setMessage("¦¹¤é°O¨S¦³¬Û¤ù");
-    			builder.setPositiveButton("½T©w", null);
+    			builder.setMessage("ï¿½ï¿½ï¿½ï¿½Oï¿½Sï¿½ï¿½ï¿½Û¤ï¿½");
+    			builder.setPositiveButton("ï¿½Tï¿½w", null);
     			builder.show();
     			return;
     		}
     		dailyImage.setImageBitmap(image);
-    		//et.setText("¤é°O¼ÐÃD:"+title+"¡C¤é°O¤º®e:"+content+"¡C¬ö¿ý®É¶¡"+time);
+    		//et.setText("ï¿½ï¿½Oï¿½ï¿½ï¿½D:"+title+"ï¿½Cï¿½ï¿½Oï¿½ï¿½ï¿½e:"+content+"ï¿½Cï¿½ï¿½ï¿½ï¿½É¶ï¿½"+time);
     		changeToDailyImage.setEnabled(false);
     		
     		AlertDialog.Builder builder = new AlertDialog.Builder(HelloFacebookSampleActivity.this);
-    		builder.setTitle("¤À¨É¸ê°T");
+    		builder.setTitle("ï¿½ï¿½ï¿½É¸ï¿½T");
     		builder.setView(dview);
     		builder.setCancelable(true);
     		
     		
-    		builder.setPositiveButton("½T©w", 
+    		builder.setPositiveButton("ï¿½Tï¿½w", 
     				new DialogInterface.OnClickListener(){
     			@Override
     			public void onClick(DialogInterface dialog, int which) {
@@ -729,7 +724,7 @@ public class HelloFacebookSampleActivity extends FacebookActivity {
     			
     		});
 
-    		builder.setNegativeButton("¨ú®ø", 
+    		builder.setNegativeButton("ï¿½ï¿½ï¿½", 
     				new DialogInterface.OnClickListener(){
     			@Override
     			public void onClick(DialogInterface dialog, int which) {
@@ -823,7 +818,7 @@ public class HelloFacebookSampleActivity extends FacebookActivity {
     	  }
     	 }
 
-    	// ³o¬O¶Ç»¡·í¤¤®ø¥¢ªº CLASS. ¦b­ìSDK EXAMPLE ¤¤§ä¨ì.
+    	// ï¿½oï¿½Oï¿½Ç»ï¿½ï¿½?ï¿½ï¿½ CLASS. ï¿½bï¿½ï¿½SDK EXAMPLE ï¿½ï¿½ï¿½ï¿½ï¿½.
 
     	 public abstract class BaseRequestListener implements RequestListener {
     	  public void onFacebookError(FacebookError e, final Object state) {
