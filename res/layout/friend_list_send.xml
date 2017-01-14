@@ -45,6 +45,15 @@
                     android:text="發送日記給朋友"    
                      android:textColor="#ffffff"
                     android:textSize="20.0sp" />
+
+                <Button
+                    android:id="@+id/button1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:text="新增好友" />
+
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>

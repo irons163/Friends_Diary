@@ -1,17 +1,17 @@
 package com.way.chat.activity;
 
 /**
- * 一个聊天消息的JavaBean
+ * 一個聊天消息的JavaBean
  * 
  * @author way
  * 
  */
 public class ChatMsgEntity {
-	private String name;// 消息来自
+	private String name;// 消息來自
 	private String date;// 消息日期
-	private String message;// 消息内容
+	private String message;// 消息內容
 	private int img;
-	private boolean isComMeg = true;// 是否为收到的消息
+	private boolean isComMeg = true;// 是否為收到的消息
 	private String dailyImg;
 	private String dailyTime;
 	
@@ -88,3 +88,4 @@ public class ChatMsgEntity {
 	}
 	
 }
+

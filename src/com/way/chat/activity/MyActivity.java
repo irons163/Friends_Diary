@@ -11,14 +11,14 @@ import com.way.chat.common.tran.bean.TranObject;
 import com.way.chat.common.util.Constants;
 
 /**
- * 自定义一个抽象的MyActivity类，每个Activity都继承他，实现消息的接收（优化性能，减少代码重复）
+ * 自訂一個抽象的MyActivity類，每個Activity都繼承他，實現消息的接收（優化性能，減少代碼重複）
  * 
  * @author way
  * 
  */
 public abstract class MyActivity extends Activity {
 	/**
-	 * 广播接收者，接收GetMsgService发送过来的消息
+	 * 廣播接收者，接收GetMsgService發送過來的消息
 	 */
 	private BroadcastReceiver MsgReceiver = new BroadcastReceiver() {
 
@@ -29,25 +29,26 @@ public abstract class MyActivity extends Activity {
 			
 			Log.e("a", "null11");
 			
-			if (msg != null) {//如果不是空，说明是消息广播
+			if (msg != null) {//如果不是空，說明是消息廣播
 				// System.out.println("MyActivity:" + msg);
-				getMessage(msg);// 把收到的消息传递给子类
-			} else {//如果是空消息，说明是关闭应用的广播
+				Log.e("myactivity", "true");
+				getMessage(msg);// 把收到的消息傳遞給子類
+			} else {//如果是空消息，說明是關閉應用的廣播
 				close();
 			}
 		}
 	};
 
 	/**
-	 * 抽象方法，用于子类处理消息，
+	 * 抽象方法，用於子類處理消息，
 	 * 
 	 * @param msg
-	 *            传递给子类的消息对象
+	 *            傳遞給子類的消息物件
 	 */
 	public abstract void getMessage(TranObject msg);
 
 	/**
-	 * 子类直接调用这个方法关闭应用
+	 * 子類直接調用這個方法關閉應用
 	 */
 	public void close() {
 		Intent i = new Intent();
@@ -57,17 +58,17 @@ public abstract class MyActivity extends Activity {
 	}
 
 	@Override
-	public void onStart() {// 在start方法中注册广播接收者
+	public void onStart() {// 在start方法中註冊廣播接收者
 		super.onStart();
 		IntentFilter intentFilter = new IntentFilter();
 		intentFilter.addAction(Constants.ACTION);
-		registerReceiver(MsgReceiver, intentFilter);// 注册接受消息广播
+		registerReceiver(MsgReceiver, intentFilter);// 註冊接受消息廣播
 
 	}
 
 	@Override
-	protected void onStop() {// 在stop方法中注销广播接收者
+	protected void onStop() {// 在stop方法中註銷廣播接收者
 		super.onStop();
-		unregisterReceiver(MsgReceiver);// 注销接受消息广播
+		unregisterReceiver(MsgReceiver);// 登出接受消息廣播
 	}
 }

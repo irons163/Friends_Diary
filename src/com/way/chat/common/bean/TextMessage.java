@@ -30,3 +30,4 @@ public class TextMessage implements Serializable {
 		this.message = message;
 	}
 }
+

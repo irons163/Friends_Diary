@@ -200,6 +200,11 @@
             android:name="com.way.chat.activity.SendOnly"
             android:windowSoftInputMode="adjustResize" >
         </activity>
+                <activity
+            android:name="com.way.chat.activity.AddFriend"
+            android:windowSoftInputMode="adjustResize" >
+        </activity>
+        
     </application>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />

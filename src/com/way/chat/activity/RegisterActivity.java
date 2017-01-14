@@ -56,12 +56,12 @@ public class RegisterActivity extends MyActivity implements OnClickListener {
 			mDialog.dismiss();
 			mDialog = null;
 		}
-		mDialog = DialogFactory.creatRequestDialog(this, "正在注册中...");
+		mDialog = DialogFactory.creatRequestDialog(this, "正在註冊中...");
 		mDialog.show();
 	}
 
 	@Override
-	public void onBackPressed() {// 捕获返回键
+	public void onBackPressed() {// 捕獲返回鍵
 		toast(RegisterActivity.this);
 	}
 
@@ -81,9 +81,9 @@ public class RegisterActivity extends MyActivity implements OnClickListener {
 	}
 
 	private void toast(Context context) {
-		new AlertDialog.Builder(context).setTitle("QQ注册")
-				.setMessage("亲！您真的不注册了吗？")
-				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+		new AlertDialog.Builder(context).setTitle("QQ註冊")
+				.setMessage("親！您真的不註冊了嗎？")
+				.setPositiveButton("確定", new DialogInterface.OnClickListener() {
 
 					public void onClick(DialogInterface dialog, int which) {
 						finish();
@@ -98,13 +98,13 @@ public class RegisterActivity extends MyActivity implements OnClickListener {
 		String passwd2 = mPasswdEt2.getText().toString();
 		if (email.equals("") || name.equals("") || passwd.equals("")
 				|| passwd2.equals("")) {
-			DialogFactory.ToastDialog(RegisterActivity.this, "QQ注册",
-					"亲！带*项是不能为空的哦");
+			DialogFactory.ToastDialog(RegisterActivity.this, "QQ註冊",
+					"親！帶*項是不能為空的哦");
 		} else {
 			if (passwd.equals(passwd2)) {
 				showRequestDialog();
-				// 提交注册信息
-				if (application.isClientStart()) {// 如果已连接上服务器
+				// 提交註冊資訊
+				if (application.isClientStart()) {// 如果已連接上伺服器
 					Client client = application.getClient();
 //					Client client = GetMsgService.client;
 					ClientOutputThread out = client.getClientOutputThread();
@@ -119,12 +119,12 @@ public class RegisterActivity extends MyActivity implements OnClickListener {
 				} else {
 					if (mDialog.isShowing())
 						mDialog.dismiss();
-					DialogFactory.ToastDialog(this, "QQ注册", "亲！服务器暂未开放哦");
+					DialogFactory.ToastDialog(this, "QQ註冊", "親！伺服器暫未開放哦");
 				}
 
 			} else {
-				DialogFactory.ToastDialog(RegisterActivity.this, "QQ注册",
-						"亲！您两次输入的密码不同哦");
+				DialogFactory.ToastDialog(RegisterActivity.this, "QQ註冊",
+						"親！您兩次輸入的密碼不同哦");
 			}
 		}
 	}
@@ -141,15 +141,15 @@ public class RegisterActivity extends MyActivity implements OnClickListener {
 					mDialog.dismiss();
 					mDialog = null;
 				}
-				DialogFactory.ToastDialog(RegisterActivity.this, "QQ注册",
-						"亲！请牢记您的登录QQ哦：" + id);
+				DialogFactory.ToastDialog(RegisterActivity.this, "QQ註冊",
+						"親！請牢記您的登錄QQ哦：" + id);
 			} else {
 				if (mDialog != null) {
 					mDialog.dismiss();
 					mDialog = null;
 				}
-				DialogFactory.ToastDialog(RegisterActivity.this, "QQ注册",
-						"亲！很抱歉！QQ号暂时缺货哦");
+				DialogFactory.ToastDialog(RegisterActivity.this, "QQ註冊",
+						"親！很抱歉！QQ號暫時缺貨哦");
 			}
 			break;
 

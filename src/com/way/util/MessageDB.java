@@ -23,7 +23,7 @@ public class MessageDB {
 				+ id
 				+ " (_id INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT, img TEXT,date TEXT,isCome TEXT,message TEXT, imagePath TEXT)");
 		int isCome = 0;
-		if (entity.getMsgType()) {//如果是收到的消息，保存在数据库的值为1
+		if (entity.getMsgType()) {//如果是收到的消息，保存在資料庫的值為1
 			isCome = 1;
 		}
 		db.execSQL(

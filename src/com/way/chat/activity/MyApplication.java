@@ -10,10 +10,10 @@ import com.way.client.Client;
 import com.way.util.SharePreferenceUtil;
 
 public class MyApplication extends Application {
-	private Client client;// 客户端
-	private boolean isClientStart;// 客户端连接是否启动
+	private Client client;// 用戶端
+	private boolean isClientStart;// 用戶端連接是否啟動
 	private NotificationManager mNotificationManager;
-	private int newMsgNum = 0;// 后台运行的消息
+	private int newMsgNum = 0;// 後臺運行的消息
 	private LinkedList<RecentChatEntity> mRecentList;
 	private RecentChatAdapter mRecentAdapter;
 	private int recentNum = 0;
@@ -23,7 +23,7 @@ public class MyApplication extends Application {
 		SharePreferenceUtil util = new SharePreferenceUtil(this,
 				Constants.SAVE_USER);
 		System.out.println(util.getIp() + " " + util.getPort());
-		client = new Client(util.getIp(), util.getPort());// 从配置文件中读ip和地址
+		client = new Client(util.getIp(), util.getPort());// 從設定檔中讀ip和地址
 		mRecentList = new LinkedList<RecentChatEntity>();
 		mRecentAdapter = new RecentChatAdapter(getApplicationContext(),
 				mRecentList);

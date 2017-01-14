@@ -7,21 +7,22 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class sql_schedule extends SQLiteOpenHelper {
-	private static final String DATABASE_NAME = "irons.db"; // ¸ê®Æ®w¦WºÙ
-	private static final int DATABASE_VERSION = 1; // ¸ê®Æ®wª©¥»
+	private static final String DATABASE_NAME = "irons.db"; // ï¿½ï¿½Æ®wï¿½Wï¿½ï¿½
+	private static final int DATABASE_VERSION = 1; // ï¿½ï¿½Æ®wï¿½ï¿½ï¿½ï¿½
 	public SQLiteDatabase db = this.getReadableDatabase();
 
 	public sql_schedule(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
 
-	// ¼W·s ­×§ï §R°£
+	// ï¿½Wï¿½s ï¿½×§ï¿½ ï¿½Rï¿½ï¿½
+	
 	public Cursor getAll() {
-		return db.rawQuery("SELECT * FROM Schedule_table", null); // ¨ú±o©Ò¦³°O¿ý
+		return db.rawQuery("SELECT * FROM Schedule_table", null); // ï¿½ï¿½oï¿½Ò¦ï¿½ï¿½Oï¿½ï¿½
 	}
 
 	public long insert(String className, long id) {
-		ContentValues cv = new ContentValues(); // «Ø¥ßContentValuesª«¥ó
+		ContentValues cv = new ContentValues(); // ï¿½Ø¥ï¿½ContentValuesï¿½ï¿½ï¿½ï¿½
 		cv.put("_id", id);
 		cv.put("className", className);
 
@@ -35,19 +36,19 @@ public class sql_schedule extends SQLiteOpenHelper {
 	}
 
 	public int delete(long id) {
-		return db.delete("Schedule_table", "_id=" + id, null); // null¬OWHEREªº°Ñ¼Æ
+		return db.delete("Schedule_table", "_id=" + id, null); // nullï¿½OWHEREï¿½ï¿½ï¿½Ñ¼ï¿½
 	}
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		String DATABASE_CREATE_TABLE = "CREATE TABLE IF NOT EXISTS Schedule_table(_id INTEGER primary key, className TEXT)";
-		// «Ø¥ßCuestom_table¸ê¯Oªí
+		// ï¿½Ø¥ï¿½Cuestom_tableï¿½ï¿½Oï¿½ï¿½
 		db.execSQL(DATABASE_CREATE_TABLE);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL("DROP TABLE IF EXISTS Schedule_table"); // §R°£ÂÂ¦³ªº¸ê®Æªí
+		db.execSQL("DROP TABLE IF EXISTS Schedule_table"); // ï¿½Rï¿½ï¿½ï¿½Â¦ï¿½ï¿½ï¿½ï¿½ï¿½Æªï¿½
 		onCreate(db);
 	}
 

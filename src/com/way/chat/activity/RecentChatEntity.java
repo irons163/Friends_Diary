@@ -72,13 +72,13 @@ public class RecentChatEntity {
 	}
 
 	public boolean equals(Object object) {
-		if (object == null)// 如果是空对象，肯定是不同的
+		if (object == null)// 如果是空物件，肯定是不同的
 			return false;
 
-		if (object == this)// 如果是同一个对象，肯定是相同的
+		if (object == this)// 如果是同一個物件，肯定是相同的
 			return true;
 /*
-		if (object instanceof RecentChatEntity) {// 如果id相同，我们就认为是同一个对象,因为id是唯一的，对于我这个小项目来说
+		if (object instanceof RecentChatEntity) {// 如果id相同，我們就認為是同一個物件,因為id是唯一的，對於我這個小項目來說
 			RecentChatEntity entity = (RecentChatEntity) object;
 			if (entity.id == this.id)
 				return true;
@@ -93,3 +93,4 @@ public class RecentChatEntity {
 				+ "]";
 	}
 }
+

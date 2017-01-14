@@ -8,7 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 /**
- * 传输的对象,直接通过Socket传输的最大对象
+ * 傳輸的物件,直接通過Socket傳輸的最大物件
  * 
  * @author way
  */
@@ -18,12 +18,12 @@ public class TranObject<T> implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private TranObjectType type;// 发送的消息类型
+	private TranObjectType type;// 發送的消息類型
 
-	private int fromUser;// 来自哪个用户
-	private int toUser;// 发往哪个用户
+	private int fromUser;// 來自哪個用戶
+	private int toUser;// 發往哪個用戶
 
-	private T object;// 传输的对象
+	private T object;// 傳輸的物件
 	
 	byte[] image;
 	

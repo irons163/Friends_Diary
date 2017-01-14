@@ -8,7 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 /**
- * 自定义的ViewPager适配器
+ * 自訂的ViewPager適配器
  * 
  * @author way
  * 

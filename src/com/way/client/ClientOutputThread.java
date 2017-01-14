@@ -8,7 +8,7 @@ import com.way.chat.common.tran.bean.TranObject;
 import com.way.chat.common.tran.bean.TranObjectType;
 
 /**
- * 客户端写消息线程
+ * 用戶端寫消息執行緒
  * 
  * @author way
  * 
@@ -32,7 +32,7 @@ public class ClientOutputThread extends Thread {
 		this.isStart = isStart;
 	}
 
-	// 这里处理跟服务器是一样的
+	// 這裡處理跟伺服器是一樣的
 	public void setMsg(TranObject msg) {
 		this.msg = msg;
 		synchronized (this) {
@@ -47,15 +47,15 @@ public class ClientOutputThread extends Thread {
 				if (msg != null) {
 					oos.writeObject(msg);
 					oos.flush();
-					if (msg.getType() == TranObjectType.LOGOUT) {// 如果是发送下线的消息，就直接跳出循环
+					if (msg.getType() == TranObjectType.LOGOUT) {// 如果是發送下線的消息，就直接跳出迴圈
 						break;
 					}
 					synchronized (this) {
-						wait();// 发送完消息后，线程进入等待状态
+						wait();// 發送完消息後，執行緒進入等候狀態
 					}
 				}
 			}
-			oos.close();// 循环结束后，关闭输出流和socket
+			oos.close();// 迴圈結束後，關閉輸出流和socket
 			if (socket != null)
 				socket.close();
 		} catch (InterruptedException e) {

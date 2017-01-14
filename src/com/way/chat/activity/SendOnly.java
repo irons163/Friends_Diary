@@ -36,7 +36,7 @@ import com.way.util.UserDB;
 
 
 public class SendOnly extends MyActivity implements OnClickListener {
-	private Button mBtnSend;// 发送btn
+	private Button mBtnSend;// 發送btn
 	private Button mBtnBack;// 返回btn
 	private EditText mEditTextContent;
 	private TextView mFriendName;
@@ -52,10 +52,10 @@ public class SendOnly extends MyActivity implements OnClickListener {
 	String dailyTime;
 	String dailyContent;
 	
-	private UserDB userDB;// 保存好友列表数据库对象
+	private UserDB userDB;// 保存好友列表資料庫物件
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);// 去掉标题栏
+		requestWindowFeature(Window.FEATURE_NO_TITLE);// 去掉標題列
 		setContentView(R.layout.send);
 		application = (MyApplication) getApplicationContext();
 		messageDB = new MessageDB(this);
@@ -64,7 +64,7 @@ public class SendOnly extends MyActivity implements OnClickListener {
 		
 		
 		initView();// 初始化view
-		//initData();// 初始化数据
+		//initData();// 初始化數據
 		
 		Intent intent = getIntent();
 		Bundle bundle = new Bundle();
@@ -90,7 +90,7 @@ public class SendOnly extends MyActivity implements OnClickListener {
 		mBtnBack = (Button) findViewById(R.id.chat_back);
 		mBtnBack.setOnClickListener(this);
 		mFriendName = (TextView) findViewById(R.id.chat_name);
-		mFriendName.setText(util.getName());
+		mFriendName.setText(user.getName());
 		mEditTextContent = (EditText) findViewById(R.id.editCont);
 		dailyImage = (ImageView)findViewById(R.id.dailyImage);
 	}
@@ -105,17 +105,17 @@ public class SendOnly extends MyActivity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.chat_send:// 发送按钮点击事件
+		case R.id.chat_send:// 發送按鈕點擊事件
 			send();
 			break;
-		case R.id.chat_back:// 返回按钮点击事件
-			finish();// 结束,实际开发中，可以返回主界面
+		case R.id.chat_back:// 返回按鈕點擊事件
+			finish();// 結束,實際開發中，可以返回主介面
 			break;
 		}
 	}
 
 	/**
-	 * 发送消息
+	 * 發送消息
 	 */
 	private void send() {
 		//String contString = mEditTextContent.getText().toString();
@@ -136,7 +136,7 @@ public class SendOnly extends MyActivity implements OnClickListener {
 					
 			messageDB.saveMsg(user.getId(), entity);
 			
-			mEditTextContent.setText("");// 清空编辑框数据
+			mEditTextContent.setText("");// 清空編輯方塊數據
 			 */
 			dailyContent = mEditTextContent.getText().toString();
 			
@@ -166,7 +166,7 @@ public class SendOnly extends MyActivity implements OnClickListener {
 				finish();
 			}
 			/*
-			// 下面是添加到最近会话列表的处理，在按发送键之后
+			// 下面是添加到最近會話列表的處理，在按發送鍵之後
 			RecentChatEntity entity1 = new RecentChatEntity(user.getId(),
 					user.getImg(), 0, user.getName(), MyDate.getDate(),
 					contString);
@@ -221,11 +221,11 @@ public class SendOnly extends MyActivity implements OnClickListener {
 			
             
 			userDB = new UserDB(SendOnly.this);
-			User user2 = userDB.selectInfo(msg.getFromUser());// 通过id查询对应数据库该好友信息
+			User user2 = userDB.selectInfo(msg.getFromUser());// 通過id查詢對應資料庫該好友資訊
 			RecentChatEntity entity2 = new RecentChatEntity(msg.getFromUser(),
 					user2.getImg(), 1, user2.getName(), MyDate.getDate(),
 					message);
-			application.getmRecentAdapter().remove(entity2);// 先移除该对象，目的是添加到首部
+			application.getmRecentAdapter().remove(entity2);// 先移除該物件，目的是添加到首部
 			application.getmRecentList().addFirst(entity2);// 再添加到首部
 			application.getmRecentAdapter().notifyDataSetChanged();
 			
@@ -233,17 +233,17 @@ public class SendOnly extends MyActivity implements OnClickListener {
 			ChatMsgEntity entity = new ChatMsgEntity(user.getName(),
 					MyDate.getDateEN(), message, user.getImg(), true, imagePath);// 收到的消息
 
-				messageDB.saveMsg(msg.getFromUser(), entity);// 保存到数据库
+				messageDB.saveMsg(msg.getFromUser(), entity);// 保存到資料庫
 				Toast.makeText(SendOnly.this,
-						"您有新的消息来自：" + msg.getFromUser() + ":" + message, 0)
-						.show();// 其他好友的消息，就先提示，并保存到数据库
+						"您有新的消息來自：" + msg.getFromUser() + ":" + message, 0)
+						.show();// 其他好友的消息，就先提示，並保存到資料庫
 				MediaPlayer.create(this, R.raw.msg).start();
 			
 			
 			break;
 		case LOGIN:
 			User loginUser = (User) msg.getObject();
-			Toast.makeText(SendOnly.this, loginUser.getId() + "上线了", 0)
+			Toast.makeText(SendOnly.this, loginUser.getId() + "上線了", 0)
 					.show();
 			MediaPlayer.create(this, R.raw.msg).start();
 			
@@ -251,7 +251,7 @@ public class SendOnly extends MyActivity implements OnClickListener {
 			break;
 		case LOGOUT:
 			User logoutUser = (User) msg.getObject();
-			Toast.makeText(SendOnly.this, logoutUser.getId() + "下线了", 0)
+			Toast.makeText(SendOnly.this, logoutUser.getId() + "下線了", 0)
 					.show();
 			MediaPlayer.create(this, R.raw.msg).start();
 			meAdapter.notifyDataSetChanged();

@@ -5,7 +5,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 /**
- * 客户端
+ * 用戶端
  * 
  * @author way
  * 
@@ -84,17 +84,17 @@ public class Client {
 
 	
 	
-	// 直接通过client得到读线程
+	// 直接通過client得到讀執行緒
 	public ClientInputThread getClientInputThread() {
 		return clientThread.getIn();
 	}
 
-	// 直接通过client得到写线程
+	// 直接通過client得到寫執行緒
 	public ClientOutputThread getClientOutputThread() {
 		return clientThread.getOut();
 	}
 
-	// 直接通过client停止读写消息
+	// 直接通過client停止讀寫消息
 	public void setIsStart(boolean isStart) {
 		clientThread.getIn().setStart(isStart);
 		clientThread.getOut().setStart(isStart);
@@ -117,12 +117,12 @@ public class Client {
 			out.start();
 		}
 
-		// 得到读消息线程
+		// 得到讀消息執行緒
 		public ClientInputThread getIn() {
 			return in;
 		}
 
-		// 得到写消息线程
+		// 得到寫消息執行緒
 		public ClientOutputThread getOut() {
 			return out;
 		}

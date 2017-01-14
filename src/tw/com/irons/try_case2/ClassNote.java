@@ -18,7 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class ClassNote extends Activity {
-	Button[] btns = new Button[35];
+	Button[] btns = new Button[56];
 	int[] btnIds = { R.id.classBtn01, R.id.classBtn02, R.id.classBtn03,
 			R.id.classBtn04, R.id.classBtn05, R.id.classBtn06, R.id.classBtn07,
 			R.id.classBtn08, R.id.classBtn09, R.id.classBtn10, R.id.classBtn11,
@@ -27,7 +27,13 @@ public class ClassNote extends Activity {
 			R.id.classBtn20, R.id.classBtn21, R.id.classBtn22, R.id.classBtn23,
 			R.id.classBtn24, R.id.classBtn25, R.id.classBtn26, R.id.classBtn27,
 			R.id.classBtn28, R.id.classBtn29, R.id.classBtn30, R.id.classBtn31,
-			R.id.classBtn32, R.id.classBtn33, R.id.classBtn34, R.id.classBtn35 };
+			R.id.classBtn32, R.id.classBtn33, R.id.classBtn34, R.id.classBtn35,
+			R.id.classBtn36, R.id.classBtn37, R.id.classBtn38, R.id.classBtn39,
+			R.id.classBtn40, R.id.classBtn41, R.id.classBtn42, R.id.classBtn43,
+			R.id.classBtn44, R.id.classBtn45, R.id.classBtn46, R.id.classBtn47,
+			R.id.classBtn48, R.id.classBtn49, R.id.classBtn50, R.id.classBtn51,
+			R.id.classBtn52, R.id.classBtn53, R.id.classBtn54, R.id.classBtn55,
+			R.id.classBtn56 };
 	private sql_schedule sql_schedule;
 	private SQLiteDatabase db;
 	myResetReceiver receiver;
@@ -40,7 +46,7 @@ public class ClassNote extends Activity {
 		sql_schedule = new sql_schedule(ClassNote.this);
 		db = sql_schedule.getWritableDatabase();
 
-		for (int i = 0; i < 35; i++) {
+		for (int i = 0; i < 56; i++) {
 			btns[i] = (Button) findViewById(btnIds[i]);
 			final int id = i;
 			btns[i].setOnClickListener(new OnClickListener() {
@@ -115,6 +121,5 @@ public class ClassNote extends Activity {
 			}
 		}
 	}
-
 
 }

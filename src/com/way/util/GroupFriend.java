@@ -5,14 +5,14 @@ import java.util.List;
 import com.way.chat.common.bean.User;
 
 /**
- * 自定义的GroupFriend对象，用来封装大组名称和分配对应的数据
+ * 自訂的GroupFriend物件，用來封裝大組名稱和分配對應的資料
  * 
  * @author way
  * 
  */
 public class GroupFriend {
-	private String groupName;// 大组名称
-	private List<User> groupChild;// 对应大组的小组成员对象数组
+	private String groupName;// 大組名稱
+	private List<User> groupChild;// 對應大組的小組成員物件陣列
 
 	public GroupFriend() {
 		super();
@@ -24,23 +24,23 @@ public class GroupFriend {
 		this.groupChild = groupChild;
 	}
 
-	public void add(User u) {// 往小组中添加用户
+	public void add(User u) {// 往小組中添加用戶
 		groupChild.add(u);
 	}
 
-	public void remove(User u) {// 根据用户对象移除用户
+	public void remove(User u) {// 根據使用者物件移除使用者
 		groupChild.remove(u);
 	}
 
-	public void remove(int index) {// 根据下标移除用户
+	public void remove(int index) {// 根據下標移除使用者
 		groupChild.remove(index);
 	}
 
-	public int getChildSize() {// 小组的大小
+	public int getChildSize() {// 小組的大小
 		return groupChild.size();
 	}
 
-	public User getChild(int index) {// 根据下标得到用户
+	public User getChild(int index) {// 根據下標得到使用者
 		return groupChild.get(index);
 	}
 

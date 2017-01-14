@@ -25,12 +25,12 @@ public class ChatMsgViewAdapter extends BaseAdapter {
 			R.drawable.f7, R.drawable.f8, R.drawable.f9 };
 
 	public static interface IMsgViewType {
-		int IMVT_COM_MSG = 0;// 收到对方的消息
-		int IMVT_TO_MSG = 1;// 自己发送出去的消息
+		int IMVT_COM_MSG = 0;// 收到對方的消息
+		int IMVT_TO_MSG = 1;// 自己發送出去的消息
 	}
 
-	private static final int ITEMCOUNT = 2;// 消息类型的总数
-	private List<ChatMsgEntity> coll;// 消息对象数组
+	private static final int ITEMCOUNT = 2;// 消息類型的總數
+	private List<ChatMsgEntity> coll;// 消息物件陣列
 	private LayoutInflater mInflater;
 
 	public ChatMsgViewAdapter(Context context, List<ChatMsgEntity> coll) {
@@ -51,20 +51,20 @@ public class ChatMsgViewAdapter extends BaseAdapter {
 	}
 
 	/**
-	 * 得到Item的类型，是对方发过来的消息，还是自己发送出去的
+	 * 得到Item的類型，是對方發過來的消息，還是自己發送出去的
 	 */
 	public int getItemViewType(int position) {
 		ChatMsgEntity entity = coll.get(position);
 
 		if (entity.getMsgType()) {// 收到的消息
 			return IMsgViewType.IMVT_COM_MSG;
-		} else {// 自己发送的消息
+		} else {// 自己發送的消息
 			return IMsgViewType.IMVT_TO_MSG;
 		}
 	}
 
 	/**
-	 * Item类型的总数
+	 * Item類型的總數
 	 */
 	public int getViewTypeCount() {
 		return ITEMCOUNT;
@@ -81,8 +81,8 @@ public class ChatMsgViewAdapter extends BaseAdapter {
 				convertView = mInflater.inflate(
 						R.layout.chatting_item_msg_text_left, null);
 			} else {
-				convertView = mInflater.inflate(
-						R.layout.chatting_item_msg_text_right, null);
+				//convertView = mInflater.inflate(
+						//R.layout.chatting_item_msg_text_right, null);
 			}
 			
 			viewHolder = new ViewHolder();
@@ -126,3 +126,4 @@ public class ChatMsgViewAdapter extends BaseAdapter {
 	}
 
 }
+

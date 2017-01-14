@@ -33,6 +33,6 @@ public class DialogFactory {
 
 	public static void ToastDialog(Context context, String title, String msg) {
 		new AlertDialog.Builder(context).setTitle(title).setMessage(msg)
-				.setPositiveButton("确定", null).create().show();
+				.setPositiveButton("確定", null).create().show();
 	}
 }

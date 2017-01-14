@@ -1,19 +1,25 @@
 package com.way.chat.common.tran.bean;
 
 /**
- * 传输对象类型
+ * 傳輸對象類型
  * 
  * @author way
  * 
  */
 public enum TranObjectType {
-	REGISTER, // 注册
-	LOGIN, // 用户登录
-	LOGOUT, // 用户退出登录
-	FRIENDLOGIN, // 好友上线
-	FRIENDLOGOUT, // 好友下线
-	MESSAGE, // 用户发送消息
-	UNCONNECTED, // 无法连接
-	FILE, // 传输文件
+	REGISTER, // 註冊
+	LOGIN, // 用戶登錄
+	LOGOUT, // 用戶退出登錄
+	FRIENDLOGIN, // 好友上線
+	FRIENDLOGOUT, // 好友下線
+	MESSAGE, // 使用者發送消息
+	UNCONNECTED, // 無法連接
+	FILE, // 傳輸文件
 	REFRESH, // 刷新
+	FRIEND,
+	ADDFRIEND,
+	DELETEFRIEND,
+	RECADDFRIEND,
+	RECDELETEFRIEND,
 }
+

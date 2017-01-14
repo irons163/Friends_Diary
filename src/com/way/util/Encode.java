@@ -5,19 +5,19 @@ import java.security.NoSuchAlgorithmException;
 
 public class Encode {
 	/**
-	 * 静态加密方法
+	 * 靜態加密方法
 	 * 
 	 * @param codeType
-	 *            传入加密方式
+	 *            傳入加密方式
 	 * @param content
-	 *            传入加密的内容
-	 * @return 返回加密结果
+	 *            傳入加密的內容
+	 * @return 返回加密結果
 	 */
 	public static String getEncode(String codeType, String content) {
 		try {
-			MessageDigest digest = MessageDigest.getInstance(codeType);// 获取一个实例，并传入加密方式
+			MessageDigest digest = MessageDigest.getInstance(codeType);// 獲取一個實例，並傳入加密方式
 			digest.reset();// 清空一下
-			digest.update(content.getBytes());// 写入内容,可以指定编码方式content.getBytes("utf-8");
+			digest.update(content.getBytes());// 寫入內容,可以指定編碼方式content.getBytes("utf-8");
 			StringBuilder builder = new StringBuilder();
 			for (byte b : digest.digest()) {
 				builder.append(Integer.toHexString((b >> 4) & 0xf));

@@ -49,6 +49,15 @@
                     android:text="朋友寄來的日記"    
                      android:textColor="#ffffff"
                     android:textSize="20.0sp" />
+
+                <Button
+                    android:id="@+id/button1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:text="新增好友" />
+
             </RelativeLayout>
 
 
@@ -81,7 +90,7 @@
               android:id="@+id/tab3"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:enabled="false"
+              android:enabled="true"
               android:text="所有接收列表" />
         
      </LinearLayout>   

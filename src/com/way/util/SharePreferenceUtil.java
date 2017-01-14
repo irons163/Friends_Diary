@@ -14,7 +14,7 @@ public class SharePreferenceUtil {
 		editor = sp.edit();
 	}
 
-	// 用户的密码
+	// 使用者的密碼
 	public void setPasswd(String passwd) {
 		editor.putString("passwd", passwd);
 		editor.commit();
@@ -24,7 +24,7 @@ public class SharePreferenceUtil {
 		return sp.getString("passwd", "");
 	}
 
-	// 用户的id，即QQ号
+	// 用戶的id，即QQ號
 	public void setId(String id) {
 		editor.putString("id", id);
 		editor.commit();
@@ -34,7 +34,7 @@ public class SharePreferenceUtil {
 		return sp.getString("id", "");
 	}
 
-	// 用户的昵称
+	// 用戶的昵稱
 	public String getName() {
 		return sp.getString("name", "");
 	}
@@ -44,7 +44,7 @@ public class SharePreferenceUtil {
 		editor.commit();
 	}
 
-	// 用户的邮箱
+	// 用戶的郵箱
 	public String getEmail() {
 		return sp.getString("email", "");
 	}
@@ -54,7 +54,7 @@ public class SharePreferenceUtil {
 		editor.commit();
 	}
 
-	// 用户自己的头像
+	// 用戶自己的頭像
 	public Integer getImg() {
 		return sp.getInt("img", 0);
 	}
@@ -74,7 +74,7 @@ public class SharePreferenceUtil {
 		return sp.getString("ip", Constants.SERVER_IP);
 	}
 
-	// 端口
+	// 埠
 	public void setPort(int port) {
 		editor.putInt("port", port);
 		editor.commit();
@@ -84,7 +84,7 @@ public class SharePreferenceUtil {
 		return sp.getInt("port", Constants.SERVER_PORT);
 	}
 
-	// 是否在后台运行标记
+	// 是否在後臺運行標記
 	public void setIsStart(boolean isStart) {
 		editor.putBoolean("isStart", isStart);
 		editor.commit();
@@ -94,7 +94,7 @@ public class SharePreferenceUtil {
 		return sp.getBoolean("isStart", false);
 	}
 
-	// 是否第一次运行本应用
+	// 是否第一次運行本應用
 	public void setIsFirst(boolean isFirst) {
 		editor.putBoolean("isFirst", isFirst);
 		editor.commit();

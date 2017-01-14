@@ -2,7 +2,6 @@ package tw.com.irons.try_case2;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 
 import tw.com.irons.try_case2.db.MyDBHelper;
@@ -28,6 +27,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,11 +35,9 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -72,6 +70,7 @@ public class MyNote extends Activity {
 	String rangeTo;
 	Cursor cursor2;
 	Intent intent2;
+	Cursor cursor;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -87,12 +86,11 @@ public class MyNote extends Activity {
 		IntentFilter filter = new IntentFilter("tw.com.irons.try_case2");
 		receiver = new myResetReceiver();
 		registerReceiver(receiver, filter);
-		
-		TranObject msg = (TranObject) getIntent().getSerializableExtra(Constants.MSGKEY);
-		
+
+		TranObject msg = (TranObject) getIntent().getSerializableExtra(
+				Constants.MSGKEY);
 		intent2 = new Intent(MyNote.this, FriendListSendActivity.class);
 		intent2.putExtra(Constants.MSGKEY, msg);
-
 
 	}
 
@@ -154,8 +152,8 @@ public class MyNote extends Activity {
 	private void addRecord(String time, String t, String i, int id, String c,
 			String r) {
 
-		Cursor cursor = db.query("notebook", null, null, null, null, null,
-				"time desc");
+		cursor = db
+				.query("notebook", null, null, null, null, null, "time desc");
 		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
 				R.layout.listview, cursor, new String[] { "imagePath", "time",
 						"title" }, new int[] { R.id.imageView1, R.id.t1,
@@ -255,17 +253,15 @@ public class MyNote extends Activity {
 		final EditText et = (EditText) findViewById(R.id.editTitle);
 		final EditText cont = (EditText) findViewById(R.id.editCont);
 		ImageView dailyImage = (ImageView) findViewById(R.id.dailyImage);
-		Button button, button2, button3, button4, button5, button6, button7, button8, button9;
+		Button button, button2, button4, button5, button6, button7;
 
 		button = (Button) findViewById(R.id.button1);
 		button2 = (Button) findViewById(R.id.button2);
-		button3 = (Button) findViewById(R.id.button3);
+		// button3 = (Button) findViewById(R.id.button3);
 		button4 = (Button) findViewById(R.id.button4);
 		button5 = (Button) findViewById(R.id.button5);
 		button6 = (Button) findViewById(R.id.button6);
 		button7 = (Button) findViewById(R.id.button7);
-		button8 = (Button) findViewById(R.id.button8);
-		button9 = (Button) findViewById(R.id.button9);
 
 		TextView textView = (TextView) findViewById(R.id.timeText);
 
@@ -278,14 +274,14 @@ public class MyNote extends Activity {
 			cont.setText("無內容");
 			button.setEnabled(false);
 			button2.setEnabled(false);
-			button3.setEnabled(false);
+			// button3.setEnabled(false);
 			button4.setEnabled(true);
 			button5.setEnabled(false);
 			button6.setEnabled(false);
 		} else {
 			button.setEnabled(true);
 			button2.setEnabled(true);
-			button3.setEnabled(true);
+			// button3.setEnabled(true);
 			button4.setEnabled(false);
 			button5.setEnabled(true);
 			button6.setEnabled(true);
@@ -318,8 +314,6 @@ public class MyNote extends Activity {
 			}
 		});
 
-		button9.setVisibility(View.INVISIBLE);
-
 		button.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -351,19 +345,12 @@ public class MyNote extends Activity {
 				bundle.putString("dailyContent", c);
 				intent2.putExtras(bundle);
 				startActivity(intent2);
-				
-				//Intent intent3 = new Intent(MyNote.this, FriendListSendActivity.class);
-				//startActivity(intent3);
-			}
-		});
 
-		button3.setOnClickListener(new OnClickListener() {
+				cursor.close();
 
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-
-				delDaily();
+				// Intent intent3 = new Intent(MyNote.this,
+				// FriendListSendActivity.class);
+				// startActivity(intent3);
 			}
 		});
 
@@ -404,14 +391,6 @@ public class MyNote extends Activity {
 			}
 		});
 
-		button8.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				searchDialy();
-			}
-		});
 	}
 
 	public void delDaily() {
@@ -498,86 +477,58 @@ public class MyNote extends Activity {
 		// cursor2.close(); 注意!千萬不能關閉cursor2，因為 SimpleCursorAdapter 會用到。
 	}
 
-	public void searchDialy() {
-
-		setContentView(R.layout.dailysearch_fromdate);
-
-		SharedPreferences preferences = getSharedPreferences("clickDate", 0);
-		int bg = preferences.getInt("background", 0);
-		if (bg != 0) {
-			View layout = (View) findViewById(R.id.layout1);
-			layout.setBackgroundDrawable(getResources().getDrawable(bg));
-		}
-
-		DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker1);
-		DatePicker datePicker2 = (DatePicker) findViewById(R.id.datePicker2);
-		Button button = (Button) findViewById(R.id.button1);
-		Button button2 = (Button) findViewById(R.id.button2);
-
-		Calendar c;
-		c = Calendar.getInstance();
-
-		String y = c.get(Calendar.YEAR) + "";
-		String m = (c.get(Calendar.MONTH) + 1) + "";
-		String n = c.get(Calendar.DAY_OF_MONTH) + "";
-
-		rangeFrom = y + m + n;
-		rangeTo = rangeFrom;
-		datePicker.init(c.get(Calendar.YEAR), c.get(Calendar.MONTH),
-				c.get(Calendar.DAY_OF_MONTH),
-				new DatePicker.OnDateChangedListener() {
-
-					@Override
-					public void onDateChanged(DatePicker view, int year,
-							int monthOfYear, int dayOfMonth) {
-						// TODO Auto-generated method stub
-						String y = year + "";
-						String m = (monthOfYear + 1) + "";
-						String n = dayOfMonth + "";
-						rangeFrom = y + m + n;
-					}
-				});
-
-		datePicker2.init(c.get(Calendar.YEAR), c.get(Calendar.MONTH),
-				c.get(Calendar.DAY_OF_MONTH),
-				new DatePicker.OnDateChangedListener() {
-
-					@Override
-					public void onDateChanged(DatePicker view, int year,
-							int monthOfYear, int dayOfMonth) {
-						// TODO Auto-generated method stub
-						String y = year + "";
-						String m = (monthOfYear + 1) + "";
-						String n = dayOfMonth + "";
-						rangeTo = y + m + n;
-					}
-				});
-
-		button.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				if (rangeFrom.compareTo(rangeTo) > 0) {
-					Toast.makeText(MyNote.this, "起始日起不能大於中止日期",
-							Toast.LENGTH_SHORT).show();
-					return;
-				}
-
-				listDaily(false);
-			}
-		});
-
-		button2.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				return;
-			}
-		});
-
-	}
+	/*
+	 * public void searchDialy() {
+	 * 
+	 * setContentView(R.layout.dailysearch_fromdate);
+	 * 
+	 * SharedPreferences preferences = getSharedPreferences("clickDate", 0); int
+	 * bg = preferences.getInt("background", 0); if (bg != 0) { View layout =
+	 * (View) findViewById(R.id.layout1);
+	 * layout.setBackgroundDrawable(getResources().getDrawable(bg)); }
+	 * 
+	 * DatePicker datePicker = (DatePicker) findViewById(R.id.datePicker1);
+	 * DatePicker datePicker2 = (DatePicker) findViewById(R.id.datePicker2);
+	 * Button button = (Button) findViewById(R.id.button1); Button button2 =
+	 * (Button) findViewById(R.id.button2);
+	 * 
+	 * Calendar c; c = Calendar.getInstance();
+	 * 
+	 * String y = c.get(Calendar.YEAR) + ""; String m = (c.get(Calendar.MONTH) +
+	 * 1) + ""; String n = c.get(Calendar.DAY_OF_MONTH) + "";
+	 * 
+	 * rangeFrom = y + m + n; rangeTo = rangeFrom;
+	 * datePicker.init(c.get(Calendar.YEAR), c.get(Calendar.MONTH),
+	 * c.get(Calendar.DAY_OF_MONTH), new DatePicker.OnDateChangedListener() {
+	 * 
+	 * @Override public void onDateChanged(DatePicker view, int year, int
+	 * monthOfYear, int dayOfMonth) { // TODO Auto-generated method stub String
+	 * y = year + ""; String m = (monthOfYear + 1) + ""; String n = dayOfMonth +
+	 * ""; rangeFrom = y + m + n; } });
+	 * 
+	 * datePicker2.init(c.get(Calendar.YEAR), c.get(Calendar.MONTH),
+	 * c.get(Calendar.DAY_OF_MONTH), new DatePicker.OnDateChangedListener() {
+	 * 
+	 * @Override public void onDateChanged(DatePicker view, int year, int
+	 * monthOfYear, int dayOfMonth) { // TODO Auto-generated method stub String
+	 * y = year + ""; String m = (monthOfYear + 1) + ""; String n = dayOfMonth +
+	 * ""; rangeTo = y + m + n; } });
+	 * 
+	 * button.setOnClickListener(new OnClickListener() {
+	 * 
+	 * @Override public void onClick(View v) { // TODO Auto-generated method
+	 * stub if (rangeFrom.compareTo(rangeTo) > 0) { Toast.makeText(MyNote.this,
+	 * "起始日起不能大於中止日期", Toast.LENGTH_SHORT).show(); return; }
+	 * 
+	 * listDaily(false); } });
+	 * 
+	 * button2.setOnClickListener(new OnClickListener() {
+	 * 
+	 * @Override public void onClick(View v) { // TODO Auto-generated method
+	 * stub return; } });
+	 * 
+	 * }
+	 */
 
 	@SuppressLint("NewApi")
 	@Override
@@ -623,5 +574,21 @@ public class MyNote extends Activity {
 			}
 		}
 		super.onActivityResult(requestCode, resultCode, data);
+	}
+
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		super.onBackPressed();
+
+		// cursor.close();
+	}
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		if (cursor != null)
+			cursor.close();
 	}
 }

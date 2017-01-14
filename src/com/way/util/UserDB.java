@@ -3,28 +3,39 @@ package com.way.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.way.chat.common.bean.User;
 
-public class UserDB {
+public class UserDB extends Activity{
 	private DBHelper helper;
-
+	Cursor c = null;
+	
 	public UserDB(Context context) {
 		helper = new DBHelper(context);
 	}
 
 	public User selectInfo(int id) {
+		
 		User u = new User();
+		Cursor c = null;
+		startManagingCursor(c);
+		try{
 		SQLiteDatabase db = helper.getReadableDatabase();
-		Cursor c = db.rawQuery("select * from user where id=?",
+		 c = db.rawQuery("select * from user where id=?",
 				new String[] { id + "" });
 		if (c.moveToFirst()) {
 			u.setImg(c.getInt(c.getColumnIndex("img")));
 			u.setName(c.getString(c.getColumnIndex("name")));
+			c.close();
 		}
+		}finally{
+			c.close();
+		}
+		
 		return u;
 	}
 
@@ -50,6 +61,7 @@ public class UserDB {
 		SQLiteDatabase db = helper.getWritableDatabase();
 		List<User> list = new ArrayList<User>();
 		Cursor c = db.rawQuery("select * from user", null);
+		c.moveToNext();
 		while (c.moveToNext()) {
 			User u = new User();
 			u.setId(c.getInt(c.getColumnIndex("id")));
@@ -68,5 +80,22 @@ public class UserDB {
 		SQLiteDatabase db = helper.getWritableDatabase();
 		db.execSQL("delete from user");
 		db.close();
+	}
+	
+	public void deleteUser() {
+		SQLiteDatabase db = helper.getWritableDatabase();
+	
+			db.execSQL(
+					"delete from user where id=2031");
+		
+		db.close();
+	}
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		
+		c.close();
 	}
 }

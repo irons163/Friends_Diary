@@ -1,17 +1,18 @@
 package com.way.chat.common.util;
 
 public class Constants {
-	public static final String SERVER_IP = "120.125.83.173";// 服务器ip
-	public static final int SERVER_PORT = 8080;// 服务器端口
+	public static final String SERVER_IP = "140.137.61.172";// 伺服器ip
+	public static final int SERVER_PORT = 8080;// 伺服器埠
 
-	public static final int REGISTER_FAIL = 0;//注册失败
-	public static final String ACTION = "com.way.message";//消息广播action
+	public static final int REGISTER_FAIL = 0;//註冊失敗
+	public static final String ACTION = "com.way.message";//消息廣播action
 	public static final String MSGKEY = "message";//消息的key
-	public static final String IP_PORT = "ipPort";//保存ip、port的xml文件名
-	public static final String SAVE_USER = "saveUser";//保存用户信息的xml文件名
-	public static final String BACKKEY_ACTION="com.way.backKey";//返回键发送广播的action
+	public static final String IP_PORT = "ipPort";//保存ip、port的xml檔案名
+	public static final String SAVE_USER = "saveUser";//保存使用者資訊的xml檔案名
+	public static final String BACKKEY_ACTION="com.way.backKey";//返回鍵發送廣播的action
 	public static final int NOTIFY_ID = 0x911;//通知ID
-	public static final String DBNAME = "qq.db";//数据库名称
+	public static final String DBNAME = "qq.db";//資料庫名稱
 	
 	public static String WhoCall;
 }
+

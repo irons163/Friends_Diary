@@ -7,11 +7,17 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Properties;
 
+
 import tw.com.irons.try_case2.utils.DateUtil;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -34,7 +40,7 @@ public class MC extends Activity {
 	private TextView TextView04;
 	private TextView TextView05;
 	private TextView TextView08;
-	private Button Button01;
+	private Button Button01, Button02;
 	private DatePicker DatePicker01;
 	private EditText EditText01;
 	private int mYear;
@@ -44,6 +50,8 @@ public class MC extends Activity {
 	static Calendar calendar1 = Calendar.getInstance();
 	static Calendar calendar2 = Calendar.getInstance();
 	static Calendar calendar3 = Calendar.getInstance();
+	
+	myResetReceiver receiver;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -62,6 +70,10 @@ public class MC extends Activity {
 			View layout = (View) findViewById(R.id.layout1);
 			layout.setBackgroundDrawable(getResources().getDrawable(bg));
 		}
+		
+		IntentFilter filter = new IntentFilter("tw.com.irons.try_case2.MC");
+		receiver = new myResetReceiver();
+		registerReceiver(receiver, filter);
 
 		TextView02 = (TextView) this.findViewById(R.id.TextView02);
 		TextView04 = (TextView) this.findViewById(R.id.TextView04);
@@ -70,7 +82,64 @@ public class MC extends Activity {
 		DatePicker01 = (DatePicker) findViewById(R.id.DatePicker01);
 		EditText01 = (EditText) this.findViewById(R.id.EditText01);
 		Button01 = (Button) this.findViewById(R.id.Button01);
+		Button02 = (Button) this.findViewById(R.id.Button02);
+		
+		go();
+	}
 
+	/* �ˬd�ɮ�mc.ini�O�_�s�b */
+	private void checkFile() {
+		boolean isExit = true;
+
+		FileOutputStream fos = null;
+		try {
+			openFileInput(fileName);
+		} catch (FileNotFoundException e) {
+			isExit = false;
+		}
+		if (!isExit) {
+			try {
+				fos = openFileOutput(fileName, MODE_WORLD_WRITEABLE);
+				BufferedOutputStream bos = new BufferedOutputStream(fos);
+
+				/* �t�Τ�����W��MC�Ĥ@�Ѫ���� */
+				mcdate_value = DateUtil.getDateTime("yyyyMMdd",
+						System.currentTimeMillis());
+				String txt = mcdate_key + "=" + mcdate_value;
+				bos.write(txt.getBytes());
+				/* �g����28�� */
+				bos.write(new String("\n").getBytes());
+				txt = period_key + "=" + period_value;
+				bos.write(txt.getBytes());
+				/* �����ɶ�������12�I */
+				bos.write(new String("\n").getBytes());
+				txt = remind_key + "=" + remind_value;
+				bos.write(txt.getBytes());
+
+				bos.close();
+				fos.close();
+
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		/* �N�ɮ�mc.ini�̪��Ȩ�X */
+		Properties p = new Properties();
+		try {
+			p.load(openFileInput(fileName));
+			mcdate_value = p.getProperty(mcdate_key);
+			period_value = p.getProperty(period_key);
+			remind_value = p.getProperty(remind_key);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void go(){
 		/* MC�g�� */
 		EditText01.setText(period_value);
 
@@ -134,64 +203,21 @@ public class MC extends Activity {
 					e.printStackTrace();
 				}
 
-				finish();
+				Intent intent = new Intent("tw.com.irons.try_case2.MC");
+				sendBroadcast(intent);
 			}
 		});
 
-	}
-
-	/* �ˬd�ɮ�mc.ini�O�_�s�b */
-	private void checkFile() {
-		boolean isExit = true;
-
-		FileOutputStream fos = null;
-		try {
-			openFileInput(fileName);
-		} catch (FileNotFoundException e) {
-			isExit = false;
-		}
-		if (!isExit) {
-			try {
-				fos = openFileOutput(fileName, MODE_WORLD_WRITEABLE);
-				BufferedOutputStream bos = new BufferedOutputStream(fos);
-
-				/* �t�Τ�����W��MC�Ĥ@�Ѫ���� */
-				mcdate_value = DateUtil.getDateTime("yyyyMMdd",
-						System.currentTimeMillis());
-				String txt = mcdate_key + "=" + mcdate_value;
-				bos.write(txt.getBytes());
-				/* �g����28�� */
-				bos.write(new String("\n").getBytes());
-				txt = period_key + "=" + period_value;
-				bos.write(txt.getBytes());
-				/* �����ɶ�������12�I */
-				bos.write(new String("\n").getBytes());
-				txt = remind_key + "=" + remind_value;
-				bos.write(txt.getBytes());
-
-				bos.close();
-				fos.close();
-
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
+		
+		Button02.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				finish();
 			}
-		}
-		/* �N�ɮ�mc.ini�̪��Ȩ�X */
-		Properties p = new Properties();
-		try {
-			p.load(openFileInput(fileName));
-			mcdate_value = p.getProperty(mcdate_key);
-			period_value = p.getProperty(period_key);
-			remind_value = p.getProperty(remind_key);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		});
 	}
-
 	private void calDate() {
 
 		String format = "yyyy.MM.dd";
@@ -240,5 +266,22 @@ public class MC extends Activity {
 		TextView08.setText(DateUtil.getNextDate(nDate, -14, format));
 		calendar3 = DateUtil.calendar;
 
+		
+	}
+	
+	private class myResetReceiver extends BroadcastReceiver {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+
+			go();
+		}
+	}
+	
+	@Override
+	public void finish() {
+		// TODO Auto-generated method stub
+		super.finish();
+		
+		unregisterReceiver(receiver);
 	}
 }

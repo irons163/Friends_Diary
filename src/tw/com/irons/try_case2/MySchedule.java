@@ -214,9 +214,9 @@ public class MySchedule extends Activity {
 		// TextView
 		// tvDatetime2=(TextView)findViewById(R.id.tvdialogcheckDate2);//顯示鬧鐘日期和時間的TextView
 		hasListTextView = (TextView) findViewById(R.id.hasListTextView);
-		Button btnEdit = (Button) findViewById(R.id.bdialogcheckEdit);// 編輯按鈕
-		Button btnDel = (Button) findViewById(R.id.bdialogcheckDel);// 刪除按鈕
-		Button bBack = (Button) findViewById(R.id.bdialogcheckBack);// 返回按鈕
+		//Button btnEdit = (Button) findViewById(R.id.bdialogcheckEdit);// 編輯按鈕
+		//Button btnDel = (Button) findViewById(R.id.bdialogcheckDel);// 刪除按鈕
+		//Button bBack = (Button) findViewById(R.id.bdialogcheckBack);// 返回按鈕
 
 		showTodayList();
 
@@ -1218,7 +1218,7 @@ public class MySchedule extends Activity {
 			break;
 
 		case DIALOG_CHECK:// 查看行程對話方塊
-			dialog.setContentView(R.layout.dialogcheck);
+			//dialog.setContentView(R.layout.dialogcheck);
 			TextView tvType = (TextView) dialog
 					.findViewById(R.id.tvdialogcheckType);// 顯示類型的TextView
 			TextView tvTitle = (TextView) dialog
@@ -1229,9 +1229,9 @@ public class MySchedule extends Activity {
 					.findViewById(R.id.tvdialogcheckDate1);// 顯示行程日期和時間的TextView
 			// TextView
 			// tvDatetime2=(TextView)dialog.findViewById(R.id.tvdialogcheckDate2);//顯示鬧鐘日期和時間的TextView
-			Button bEdit = (Button) dialog.findViewById(R.id.bdialogcheckEdit);// 編輯按鈕
-			Button bDel = (Button) dialog.findViewById(R.id.bdialogcheckDel);// 刪除按鈕
-			Button bBack = (Button) dialog.findViewById(R.id.bdialogcheckBack);// 返回按鈕
+			//Button bEdit = (Button) dialog.findViewById(R.id.bdialogcheckEdit);// 編輯按鈕
+			//Button bDel = (Button) dialog.findViewById(R.id.bdialogcheckDel);// 刪除按鈕
+			//Button bBack = (Button) dialog.findViewById(R.id.bdialogcheckBack);// 返回按鈕
 			littleImageView = (ImageView) dialog.findViewById(R.id.imageView1);
 
 			tvType.setText(schTemp.typeForListView());
@@ -1274,13 +1274,13 @@ public class MySchedule extends Activity {
 					showDialog(DIALOG_SCH_DEL_CONFIRM);
 				}
 			});
-
+/*
 			bBack.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					dialogCheck.cancel();
 				}
-			});
+			});*/
 			break;
 		case DIALOG_ALL_DEL_CONFIRM:// 刪除所有過期行程對話方塊
 
@@ -1295,7 +1295,8 @@ public class MySchedule extends Activity {
 		if (keyCode == 4) {
 			switch (curr) {
 			case MAIN:// 在主介面的話退出程式
-				System.exit(0);
+				//System.exit(0);
+				finish();
 				break;
 			case SETTING:// 在行程編輯介面的話返回主介面
 				gotoMain();
@@ -1455,5 +1456,13 @@ public class MySchedule extends Activity {
 			littleImageView.setBackgroundDrawable(getResources().getDrawable(
 					littleImage));
 		}
+	}
+	
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		if(cursor2!=null)
+			cursor2.close();
 	}
 }

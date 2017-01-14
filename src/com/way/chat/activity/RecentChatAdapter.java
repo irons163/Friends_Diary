@@ -51,7 +51,7 @@ public class RecentChatAdapter extends BaseAdapter {
 		return position;
 	}
 
-	// 通过对象移除
+	// 通過對象移除
 	
 	public void remove(RecentChatEntity entity) {
 		list.remove(entity);
@@ -87,14 +87,14 @@ public class RecentChatAdapter extends BaseAdapter {
 			holder.count.setText(entity.getCount() + "");
 			holder.count.setTextColor(Color.BLACK);
 		} else {
-			holder.count.setVisibility(View.INVISIBLE);// 如果没有消息，就隐藏此view
+			holder.count.setVisibility(View.INVISIBLE);// 如果沒有消息，就隱藏此view
 		}
-		// 点击事件
+		// 點擊事件
 		convertView.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				// 下面是切换到聊天界面处理
+				// 下面是切換到聊天介面處理
 				User u = new User();
 				u.setName(entity.getName());
 				u.setId(entity.getId());
@@ -103,7 +103,7 @@ public class RecentChatAdapter extends BaseAdapter {
 				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 				intent.putExtra("user", u);
 				context.startActivity(intent);
-				// Toast.makeText(Tab2.this, "开始聊天", 0).show();
+				// Toast.makeText(Tab2.this, "開始聊天", 0).show();
 				application.setRecentNum(0);
 
 			}

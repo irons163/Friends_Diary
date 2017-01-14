@@ -3,7 +3,7 @@ package com.way.chat.common.bean;
 import java.io.Serializable;
 
 /**
- * �û�����
+ * 
  * 
  * @author way
  */
@@ -12,12 +12,12 @@ public class User implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int id;// QQ����
-	private String name;// �ǳ�
-	private String email;// ����
-	private String password;// ����
-	private int isOnline;// �Ƿ�����
-	private int img;// ͷ��ͼ��
+	private int id; 
+	private String name; 
+	private String email;
+	private String password;
+	private int isOnline;
+	private int img;
 	private String ip;
 	private int port;
 	private int group;

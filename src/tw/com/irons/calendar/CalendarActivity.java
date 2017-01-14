@@ -21,14 +21,17 @@ import tw.com.irons.try_case2.R;
 import tw.com.irons.try_case2.SetMenu;
 import tw.com.irons.try_case2.utils.DateUtil2;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -36,6 +39,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.way.chat.activity.GetMsgService;
+import com.way.chat.activity.MyApplication;
 import com.way.chat.common.tran.bean.TranObject;
 import com.way.chat.common.util.Constants;
 
@@ -51,6 +56,7 @@ public class CalendarActivity extends Activity  implements CalendarView.OnCellTo
 	int year;
 	int month;
 	myResetReceiver receiver;
+	mmyResetReceiver receiver2;
 	public static int mcDay,mcYear,mcMonth;
     /** Called when the activity is first created. */
     @Override
@@ -98,7 +104,7 @@ public class CalendarActivity extends Activity  implements CalendarView.OnCellTo
         dateText=(TextView)findViewById(R.id.dateText);
 		year  = mView.getYear();
 		month = mView.getMonth()+1; 
-        dateText.setText(year+"�~"+month+"��");
+        dateText.setText(year+"年"+month+"月");
         
         beforeBtn=(ImageButton)findViewById(R.id.calenderImageButton01);
         nextBtn=(ImageButton)findViewById(R.id.calenderImageButton02);
@@ -110,7 +116,7 @@ public class CalendarActivity extends Activity  implements CalendarView.OnCellTo
 				mView.previousMonth();
 				year  = mView.getYear();
 				month = mView.getMonth()+1;
-				dateText.setText(year+"�~"+month+"��");
+				dateText.setText(year+"年"+month+"月");
 			}
 		});
         
@@ -121,22 +127,40 @@ public class CalendarActivity extends Activity  implements CalendarView.OnCellTo
   				mView.nextMonth();
   				year  = mView.getYear();
   				month = mView.getMonth()+1;
-  				dateText.setText(year+"�~"+month+"��");
+  				dateText.setText(year+"年"+month+"月");
   			}
   		});
         
 		IntentFilter filter = new IntentFilter("tw.com.irons.try_case2.BG");
 		receiver = new myResetReceiver();
 		registerReceiver(receiver, filter);
+		
+		IntentFilter filter2 = new IntentFilter("tw.com.irons.try_case2.MC");
+		receiver2 = new mmyResetReceiver();
+		registerReceiver(receiver2, filter2);
     }
     
 	private class myResetReceiver extends BroadcastReceiver {
 		@Override
 		public void onReceive(Context context, Intent intent) {
+
+				Log.e("calendarBroadcast", "BG");
 	        SharedPreferences preferences = getSharedPreferences("clickDate", 0);    
 	        int bg =preferences.getInt("background", 0);
 			View layout = (View)findViewById(R.id.layout1);
 			layout.setBackgroundDrawable(getResources().getDrawable(bg));
+		
+			
+		}		
+	}
+	
+	private class mmyResetReceiver extends BroadcastReceiver {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+		
+				Log.e("calendarBroadcast", "MC");
+				mView = (CalendarView)findViewById(R.id.calendar);
+			
 		}		
 	}
 	
@@ -202,7 +226,48 @@ public class CalendarActivity extends Activity  implements CalendarView.OnCellTo
 		
 		//finish();
 		return;
+		
+		
 	}
 
+	@Override
+	public void onBackPressed() {
+		// TODO Auto-generated method stub
+		//super.onBackPressed();
+		
+
+		
+		exitDialog(CalendarActivity.this, "登出", "確定要登出嗎？");
+		
+		//finish();
+	}
+	
+	// 完全退出提示窗
+	private void exitDialog(Context context, String title, String msg) {
+		final MyApplication application = (MyApplication) this.getApplicationContext();
+		
+		new AlertDialog.Builder(context).setTitle(title).setMessage(msg)
+				.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// 關閉服務
+						if (application.isClientStart()) {
+							Intent service = new Intent(
+									CalendarActivity.this,
+									GetMsgService.class);
+							stopService(service);
+						}
+						
+						unregisterReceiver(receiver);
+						unregisterReceiver(receiver2);
+						
+						Intent i = new Intent();
+						i.setAction(Constants.ACTION);
+						sendBroadcast(i);
+						finish();
+					}
+				}).setNegativeButton("取消", null).create().show();
+	}
     
 }
